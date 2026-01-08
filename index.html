@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SharkMC | Servidor Oficial</title>
+    <title>SharkMC Network | Sitio Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -11,7 +11,8 @@
             --primary: #00d2ff;
             --secondary: #004e92;
             --bg: #050b14;
-            --card: #101926;
+            --card: #111a28;
+            --accent: #25D366;
             --white: #ffffff;
         }
 
@@ -20,218 +21,320 @@
             background-color: var(--bg);
             color: var(--white);
             margin: 0;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Hero Section */
+        /* Hero / Encabezado */
         .hero {
-            padding: 60px 20px;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: radial-gradient(circle, rgba(0,210,255,0.1) 0%, rgba(5,11,20,1) 80%);
+            background: linear-gradient(rgba(5, 11, 20, 0.7), rgba(5, 11, 20, 0.9)), 
+                        url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80');
+            background-size: cover;
+            padding: 20px;
         }
 
         .logo-main {
-            max-width: 280px;
-            filter: drop-shadow(0 0 25px var(--primary));
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
+            max-width: 320px;
+            filter: drop-shadow(0 0 30px var(--primary));
+            animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
         }
 
-        .badge-container {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .badge {
-            background: var(--card);
-            padding: 12px 20px;
-            border-radius: 10px;
-            border: 1px solid var(--primary);
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .badge i { color: var(--primary); margin-right: 8px; }
-
-        /* Sección de Ubicación */
-        .location-box {
-            max-width: 900px;
-            margin: 30px auto;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .map-img {
-            width: 100%;
-            max-width: 700px;
-            border-radius: 15px;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 40px rgba(0, 210, 255, 0.2);
-            margin-top: 20px;
-        }
-
-        /* Acordeón de Reglas */
-        .rules-section {
-            max-width: 850px;
-            margin: 50px auto;
+        /* Tarjetas de Información */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: -50px auto 50px;
             padding: 0 20px;
         }
+
+        .card-info {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-info i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .card-info h3 { margin: 10px 0; color: var(--primary); font-weight: 900; }
+        .card-info p { font-size: 1.1rem; font-weight: bold; margin: 5px 0; }
+
+        /* Sección de Reglas Detalladas */
+        .section-title { text-align: center; font-size: 2.5rem; margin: 60px 0 30px; font-weight: 900; color: var(--primary); }
+
+        .rules-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
         .accordion {
             background: var(--card);
             margin-bottom: 15px;
-            border-radius: 12px;
-            overflow: hidden;
+            border-radius: 15px;
             border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
         }
 
+        .accordion:hover { border-color: var(--primary); }
+
         .accordion-header {
-            padding: 20px 25px;
+            padding: 25px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 1.1rem;
             font-weight: 700;
-            transition: 0.3s;
-            background: rgba(16, 25, 38, 0.8);
         }
 
-        .accordion-header:hover { background: rgba(0, 210, 255, 0.1); }
+        .accordion-header i { transition: 0.4s; color: var(--primary); }
 
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            background: rgba(0,0,0,0.4);
+            transition: all 0.4s ease-out;
+            background: rgba(0,0,0,0.3);
             padding: 0 25px;
-            color: #bdc3c7;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: #b0b8c1;
         }
 
-        /* Tebex y Footer */
-        .tebex-card {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            padding: 50px 20px;
+        /* Ubicación */
+        .location-section {
+            background: rgba(0, 210, 255, 0.05);
+            padding: 80px 20px;
             text-align: center;
-            margin-top: 60px;
         }
 
-        .btn-store {
+        .map-box {
+            max-width: 1000px;
+            margin: 40px auto;
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.3);
+        }
+
+        .map-box img { width: 100%; display: block; }
+
+        /* Footer y Tienda */
+        .footer-store {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .btn-tebex {
             background: white;
             color: var(--secondary);
-            padding: 16px 40px;
+            padding: 20px 50px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
+            font-size: 1.3rem;
             display: inline-block;
-            margin-top: 20px;
+            transition: 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .btn-tebex:hover { transform: scale(1.1); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
             transition: 0.3s;
         }
 
-        .btn-store:hover { transform: scale(1.1); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .wa-float:hover { transform: scale(1.1); }
 
     </style>
 </head>
 <body>
 
-    <section class="hero">
+    <a href="https://wa.me/593987749885" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header class="hero">
         <img src="logo.png" alt="SharkMC Logo" class="logo-main">
-        <h1 style="font-size: 2.8rem; margin: 10px 0;">SHARKMC NETWORK</h1>
-        <p style="font-size: 1.2rem; color: var(--primary);">📍 Miami, Estados Unidos</p>
-        
-        <div class="badge-container">
-            <div class="badge"><i class="fas fa-wifi"></i> IP: sharkmc.us</div>
-            <div class="badge"><i class="fas fa-ethernet"></i> Puerto: 19132</div>
-            <div class="badge"><i class="fas fa-server"></i> Estado: 24/7 Online</div>
+        <h1 style="font-size: 3.5rem; margin-bottom: 0;">SHARKMC NETWORK</h1>
+        <p style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">EXPERIENCIA PREMIUM DESDE MIAMI</p>
+    </header>
+
+    <div class="info-grid">
+        <div class="card-info">
+            <i class="fas fa-network-wired"></i>
+            <h3>DIRECCIÓN IP</h3>
+            <p>sharkmc.us</p>
+        </div>
+        <div class="card-info">
+            <i class="fas fa-plug"></i>
+            <h3>PUERTO BEDROCK</h3>
+            <p>19132</p>
+        </div>
+        <div class="card-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>UBICACIÓN</h3>
+            <p>Miami, Estados Unidos 🇺🇸</p>
+        </div>
+    </div>
+
+    <section class="location-section">
+        <h2 class="section-title">NUESTRA INFRAESTRUCTURA</h2>
+        <p>Conectividad de alta velocidad para latencia mínima en Latinoamérica.</p>
+        <div class="map-box">
+            <img src="mapa.png" alt="Mapa de Red SharkMC">
         </div>
     </section>
 
-    <section class="location-box">
-        <h2><i class="fas fa-map-marked-alt"></i> UBICACIÓN DEL SERVIDOR</h2>
-        <p>Alojado en el corazón de Miami para garantizar el mejor ping a toda Latinoamérica y USA.</p>
-        <img src="mapa.png" class="map-img" alt="Mapa de Red SharkMC">
-    </section>
-
-    <div class="rules-section">
-        <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">REGALMENTO GENERAL</h2>
+    <div class="rules-container">
+        <h2 class="section-title">REGLAMENTO OFICIAL</h2>
 
         <div class="accordion">
             <div class="accordion-header" onclick="toggle(this)">
-                <span>1. Respeto y Cortesía</span> <i class="fas fa-chevron-down"></i>
+                <span>1. Respeto y Cortesía</span> <i class="fas fa-plus"></i>
             </div>
             <div class="accordion-content">
-                <p>No se permitirá ningún tipo de comportamiento agresivo u tóxico hacia un usuario. El acoso, amenazas y violencia están totalmente prohibidos.</p>
+                <p>No se permitirá ningún tipo de comportamiento agresivo u tóxico hacia un usuario. La toxicidad, acoso, amenazas y violencia están totalmente prohibidos.</p>
             </div>
         </div>
 
         <div class="accordion">
             <div class="accordion-header" onclick="toggle(this)">
-                <span>2. Prohibido el Spam y Flood</span> <i class="fas fa-chevron-down"></i>
+                <span>2. Prohibido el Spam y Flood</span> <i class="fas fa-plus"></i>
             </div>
             <div class="accordion-content">
-                <p>No permitiremos Spam por canales de chat o mensajes directos. Esto incluye repetición innecesaria de mensajes y promoción de otros servidores.</p>
+                <p>No permitiremos Spam por canales de chat o mensajes directos. Incluye repetición innecesaria de mensajes o caracteres y promoción a otros servidores.</p>
             </div>
         </div>
 
         <div class="accordion">
             <div class="accordion-header" onclick="toggle(this)">
-                <span>3. Estafas</span> <i class="fas fa-chevron-down"></i>
+                <span>3. Estafas</span> <i class="fas fa-plus"></i>
             </div>
             <div class="accordion-content">
-                <p>No permitiremos estafas, links externos sospechosos o el robo de cuentas de otros jugadores.</p>
+                <p>No permitiremos ningún tipo de estafa, incluyendo promoción de links externos a SHARKMC o el robo de cuentas.</p>
             </div>
         </div>
 
         <div class="accordion">
             <div class="accordion-header" onclick="toggle(this)">
-                <span>4. Privacidad (Doxeo)</span> <i class="fas fa-chevron-down"></i>
+                <span>4. Respeto por la Privacidad</span> <i class="fas fa-plus"></i>
             </div>
             <div class="accordion-content">
-                <p>No toleraremos intentos de Doxeo o filtración de información privada como IPs, fotos personales o números telefónicos.</p>
+                <p>No toleraremos intentos de Doxeo o filtración de información privada (IPs, fotos, direcciones, números telefónicos).</p>
             </div>
         </div>
 
         <div class="accordion">
             <div class="accordion-header" onclick="toggle(this)">
-                <span>5. Ventas Ilegales</span> <i class="fas fa-chevron-down"></i>
+                <span>5. Responsabilidad Personal</span> <i class="fas fa-plus"></i>
             </div>
             <div class="accordion-content">
-                <p>Prohibido el comercio de objetos por dinero real fuera de la tienda oficial de SHARKMC.</p>
+                <p>Cada jugador es responsable de su propia cuenta. No compartas tus credenciales y mantén tu cuenta segura.</p>
             </div>
         </div>
 
         <div class="accordion">
             <div class="accordion-header" onclick="toggle(this)">
-                <span>6. Suplantación</span> <i class="fas fa-chevron-down"></i>
+                <span>6. Ventas Ilegales</span> <i class="fas fa-plus"></i>
             </div>
             <div class="accordion-content">
-                <p>Prohibido hacerse pasar por otros jugadores o miembros del Staff del servidor.</p>
+                <p>No se permite la venta de objetos por dinero real fuera de la tienda oficial. Prohibido el tradeo externo entre servidores.</p>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggle(this)">
+                <span>7. No Difundir Material Inapropiado</span> <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <p>Prohibido contenido NSFW, Gore o Pornografía. Mantengamos un ambiente seguro.</p>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggle(this)">
+                <span>8. Escucha Activa</span> <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <p>Presta atención a los anuncios del Staff para evitar malentendidos e informarte de cambios importantes.</p>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggle(this)">
+                <span>9. Reporta Incumplimientos</span> <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <p>Si ves a alguien rompiendo las reglas, repórtalo al personal para mantener la comunidad agradable.</p>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggle(this)">
+                <span>10. Uso de Canales de Voz</span> <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <p>Evita ruido excesivo, interrupciones constantes o música sin permiso en los canales de voz.</p>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggle(this)">
+                <span>11. Sigue las Instrucciones del Staff</span> <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <p>Acata las indicaciones del personal. Ellos están aquí para asegurar un entorno justo.</p>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggle(this)">
+                <span>12. Vacíos Legales</span> <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <p>Cualquier acción perjudicial no detallada aquí será evaluada y sancionada por la Administración.</p>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggle(this)">
+                <span>13. Suplantación</span> <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <p>No se permite la suplantación de identidad de otros usuarios o miembros del equipo de trabajo.</p>
             </div>
         </div>
     </div>
 
-    <section class="tebex-card">
-        <img src="https://images.squarespace-cdn.com/content/v1/599426f846c3c4327731215b/1553530005272-X05V6I2K6U1LQX0W2E2F/tebex-logo-white.png" style="width: 130px;" alt="Tebex Store">
-        <h2>¿QUIERES APOYAR AL SERVIDOR?</h2>
-        <p>Obtén rangos, llaves y ventajas exclusivas en nuestra tienda oficial.</p>
-        <a href="https://sharkmcevo.tebex.io/" target="_blank" class="btn-store">ENTRAR A LA TIENDA</a>
-        <br><br>
-        <a href="https://wa.me/593987749885" style="color: white; text-decoration: none; font-size: 0.9rem;">
-            <i class="fab fa-whatsapp"></i> Soporte vía WhatsApp
-        </a>
+    <section class="footer-store">
+        <img src="https://images.squarespace-cdn.com/content/v1/599426f846c3c4327731215b/1553530005272-X05V6I2K6U1LQX0W2E2F/tebex-logo-white.png" style="width: 150px; margin-bottom: 20px;">
+        <h2>POTENCIA TU AVENTURA EN SHARKMC</h2>
+        <p>Adquiere rangos y beneficios únicos en nuestra tienda oficial.</p>
+        <a href="https://sharkmcevo.tebex.io/" target="_blank" class="btn-tebex">VISITAR TIENDA TEBEX</a>
+        <p>&copy; 2026 SharkMC Network - Todos los derechos reservados.</p>
     </section>
 
     <script>
@@ -242,10 +345,12 @@
                 content.style.maxHeight = null;
                 content.style.padding = "0 25px";
                 icon.style.transform = "rotate(0deg)";
+                icon.className = "fas fa-plus";
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
-                content.style.padding = "20px 25px";
+                content.style.padding = "25px";
                 icon.style.transform = "rotate(180deg)";
+                icon.className = "fas fa-minus";
             }
         }
     </script>
