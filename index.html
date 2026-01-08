@@ -3,333 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SharkMC | Dashboard Elite v3.0</title>
+    <title>SharkMC | GALAXY DASHBOARD</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Poppins:wght@300;600;900&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root { 
             --primary: #00d2ff; 
-            --primary-glow: rgba(0, 210, 255, 0.5);
-            --bg: #04060b; 
-            --card: #0d1624; 
-            --green: #2ecc71; 
-            --gold: #f1c40f;
-            --text-muted: #8492a6;
-            --border: rgba(255,255,255,0.08);
+            --accent: #0072ff;
+            --bg: #020408; 
+            --card: rgba(13, 22, 36, 0.7); 
+            --green: #00ff88; 
+            --gold: #ffcc00;
+            --border: rgba(0, 210, 255, 0.2);
         }
-        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* --- FONDO ANIMADO --- */
-        body::before {
+        * { box-sizing: border-box; cursor: crosshair; }
+        body, html { 
+            margin: 0; padding: 0; font-family: 'Poppins', sans-serif; 
+            background: var(--bg); color: white; overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- FONDO DE PARTÍCULAS (EFECTO LOCO) --- */
+        body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #111e31 0%, #04060b 100%);
-            z-index: -1;
+            background: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1; animation: moveGrid 20s linear infinite;
         }
+        @keyframes moveGrid { from { background-position: 0 0; } to { background-position: 50px 50px; } }
 
-        /* --- PANTALLA DE CARGA / BIENVENIDA --- */
+        /* --- PANTALLA DE ENTRADA ÉPICA --- */
         #welcome-screen {
-            position: fixed; width: 100%; height: 100vh; background: var(--bg);
+            position: fixed; width: 100%; height: 100vh; background: black;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: transform 1.2s cubic-bezier(1, 0, 0, 1);
+            z-index: 10000; transition: 1.5s cubic-bezier(1,0,0,1);
         }
-        .loader-logo { width: 200px; margin-bottom: 30px; filter: drop-shadow(0 0 30px var(--primary)); animation: float 3s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        
-        .sys-info { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 0.9rem; letter-spacing: 6px; margin-bottom: 15px; text-shadow: 0 0 10px var(--primary-glow); }
-        .welcome-title { font-size: 3.5rem; font-weight: 900; text-align: center; margin-bottom: 20px; line-height: 1; text-transform: uppercase; }
-        .welcome-title span { color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
-        
-        .status-badge { display: flex; align-items: center; gap: 12px; font-size: 1.1rem; font-weight: 700; margin-bottom: 45px; background: rgba(255,255,255,0.03); padding: 10px 25px; border-radius: 50px; border: 1px solid var(--border); }
-        .pulse-dot { width: 14px; height: 14px; background: var(--green); border-radius: 50%; box-shadow: 0 0 20px var(--green); animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(46, 204, 113, 0); } 100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); } }
+        .shark-glow {
+            width: 250px; filter: drop-shadow(0 0 50px var(--primary));
+            animation: breath 3s infinite ease-in-out;
+        }
+        @keyframes breath { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px var(--primary)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 70px var(--primary)); } }
 
-        .btn-main { background: var(--primary); color: #000; padding: 18px 60px; border: none; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 1.1rem; box-shadow: 0 15px 35px var(--primary-glow); }
-        .btn-main:hover { transform: scale(1.1) rotate(-1deg); background: white; }
+        .btn-start {
+            margin-top: 50px; padding: 20px 60px; font-family: 'Orbitron';
+            background: transparent; border: 2px solid var(--primary); color: var(--primary);
+            font-weight: 900; text-transform: uppercase; border-radius: 5px;
+            box-shadow: 0 0 20px var(--border); transition: 0.5s;
+        }
+        .btn-start:hover { background: var(--primary); color: black; box-shadow: 0 0 50px var(--primary); transform: skew(-10deg); }
 
-        /* --- NAVEGACIÓN PRO --- */
+        /* --- NAVEGACIÓN --- */
         nav { 
-            position: sticky; top: 0; z-index: 1000; padding: 25px 8%; 
-            background: rgba(4, 6, 11, 0.95); backdrop-filter: blur(20px);
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000; padding: 20px 5%; 
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; border-bottom: 1px solid var(--border);
         }
-        .nav-logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.8rem; }
-        .nav-links { display: flex; gap: 30px; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); }
-        .nav-links span:hover { color: var(--primary); cursor: pointer; }
+        .nav-title { font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; color: var(--primary); }
 
-        /* --- CONTENIDO --- */
-        .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
+        .container { max-width: 1200px; margin: auto; padding: 50px 20px; }
 
-        .hero-section { text-align: center; margin-bottom: 80px; }
-        .hero-section img { width: 180px; filter: drop-shadow(0 0 40px var(--primary-glow)); margin-bottom: 30px; }
-        .hero-section h2 { font-size: 4rem; font-weight: 900; margin: 0; letter-spacing: -3px; }
-        
-        .specs-bar { display: flex; justify-content: center; gap: 30px; margin-top: 25px; flex-wrap: wrap; }
-        .spec-item { background: rgba(255,255,255,0.03); padding: 10px 20px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); }
-        .spec-item i { color: var(--primary); margin-right: 8px; }
+        /* --- HEADER DASHBOARD (EL LOGO VOLVIÓ) --- */
+        .header-box { text-align: center; margin-bottom: 100px; }
+        .header-box img { width: 220px; filter: drop-shadow(0 0 30px var(--primary)); margin-bottom: 20px; }
+        .header-box h1 { font-family: 'Orbitron'; font-size: 3.5rem; margin: 0; text-shadow: 0 0 20px var(--primary); }
+        .header-box p { font-size: 1.2rem; color: var(--text-muted); letter-spacing: 3px; }
 
-        .ip-card { 
-            display: inline-block; padding: 20px 45px; border: 3px dashed var(--primary); 
-            border-radius: 20px; cursor: pointer; font-weight: 900; color: var(--primary); 
-            margin-top: 40px; background: rgba(0,210,255,0.05); font-size: 1.4rem;
+        .ip-neon {
+            display: inline-block; padding: 20px 50px; margin-top: 30px;
+            background: rgba(0, 210, 255, 0.1); border: 2px solid var(--primary);
+            font-family: 'Orbitron'; font-size: 1.5rem; color: var(--primary);
+            border-radius: 0 20px 0 20px; transition: 0.3s;
         }
-        .ip-card:hover { background: var(--primary); color: #000; border-style: solid; box-shadow: 0 0 30px var(--primary-glow); }
+        .ip-neon:hover { background: var(--primary); color: black; transform: scale(1.1); }
 
-        /* --- TIENDA --- */
-        .store-banner { 
-            display: block; width: 100%; max-width: 600px; margin: 50px auto; 
-            background: linear-gradient(45deg, var(--gold), #f39c12); 
-            color: black; text-align: center; padding: 25px; border-radius: 25px; 
-            text-decoration: none; font-weight: 900; font-size: 1.5rem; 
-            box-shadow: 0 20px 40px rgba(241,196,15,0.4);
+        /* --- CARTAS ESTILO GLASS --- */
+        .glass-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 30px; margin-bottom: 40px; overflow: hidden;
+            backdrop-filter: blur(10px); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
-        .store-banner:hover { transform: scale(1.05) translateY(-5px); }
+        .card-head { padding: 35px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(0, 210, 255, 0.05); }
+        .card-head h3 { margin: 0; font-family: 'Orbitron'; font-size: 1.2rem; display: flex; align-items: center; gap: 15px; }
+        .card-body { max-height: 0; overflow: hidden; transition: 1s cubic-bezier(0,1,0,1); padding: 0 35px; }
+        .card-body.open { max-height: 5000px; padding: 40px 35px; }
 
-        /* --- SECCIONES COLAPSABLES --- */
-        .card-pro { background: var(--card); border-radius: 25px; margin-bottom: 35px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-        .card-pro-header { padding: 35px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); }
-        .card-pro-header:hover { background: rgba(255,255,255,0.05); }
-        .card-pro-header h3 { margin: 0; font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 15px; }
-        .card-pro-header i.icon-deco { color: var(--primary); font-size: 1.6rem; text-shadow: 0 0 10px var(--primary-glow); }
-        
-        .card-pro-content { max-height: 0; overflow: hidden; transition: 1s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 35px; }
-        .card-pro-content.open { max-height: 4000px; padding: 35px; border-top: 1px solid var(--border); }
+        /* --- REGLAS (MÁS LOCAS) --- */
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .rule-item { 
+            padding: 20px; background: rgba(255,255,255,0.02); border-radius: 15px; 
+            border-right: 2px solid transparent; transition: 0.3s;
+        }
+        .rule-item:hover { background: rgba(0, 210, 255, 0.1); border-right: 5px solid var(--primary); transform: translateX(10px); }
+        .rule-item b { color: var(--primary); font-family: 'Orbitron'; }
 
-        /* --- RED GLOBAL --- */
-        .map-container { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 30px; }
-        .map-container img { width: 100%; display: block; filter: brightness(0.8); }
-        
-        .ping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .ping-card { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); }
-        .ping-status { color: var(--green); font-weight: 900; font-family: 'Orbitron', sans-serif; }
+        /* --- MAPA Y RED --- */
+        .map-frame { border-radius: 20px; border: 2px solid var(--border); overflow: hidden; margin-bottom: 30px; }
+        .map-frame img { width: 100%; filter: hue-rotate(180deg) brightness(0.7); transition: 1s; }
+        .map-frame img:hover { filter: hue-rotate(0deg) brightness(1); }
 
-        /* --- REGLAMENTO (13 REGLAS) --- */
-        .rules-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; }
-        .rule-box { padding: 18px; background: rgba(255,255,255,0.02); border-left: 5px solid var(--primary); border-radius: 8px; font-size: 1rem; line-height: 1.6; }
-        .rule-box b { color: var(--primary); font-family: 'Orbitron', sans-serif; font-size: 1.1rem; margin-right: 10px; }
-
-        /* --- FEEDBACK / ESTRELLAS --- */
-        .star-rating { display: flex; justify-content: center; gap: 25px; margin: 35px 0; }
-        .star-rating i { font-size: 3.5rem; color: #1a273a; cursor: pointer; }
-        .star-rating i.active { color: var(--gold); text-shadow: 0 0 30px var(--gold); transform: scale(1.2); }
+        /* --- ESTRELLAS --- */
+        .star-box { display: flex; justify-content: center; gap: 30px; padding: 40px 0; }
+        .star-box i { font-size: 4rem; color: #111; transition: 0.4s; text-shadow: 0 0 5px black; }
+        .star-box i.active { color: var(--gold); text-shadow: 0 0 30px var(--gold); transform: scale(1.3) rotate(15deg); }
 
         /* --- FORMULARIOS --- */
-        .input-group { margin-top: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
-        input, textarea { width: 100%; padding: 22px; background: #05080f; border: 1px solid var(--border); color: white; border-radius: 18px; font-family: inherit; font-size: 1rem; }
-        input:focus, textarea:focus { border-color: var(--primary); outline: none; background: #0a111d; box-shadow: 0 0 20px rgba(0,210,255,0.1); }
-        
-        .btn-submit { width: 100%; padding: 22px; background: var(--primary); border: none; border-radius: 18px; font-weight: 900; margin-top: 30px; cursor: pointer; color: black; font-size: 1.2rem; letter-spacing: 1px; }
-        .btn-submit:hover { background: white; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
+        input, textarea { 
+            width: 100%; padding: 25px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); 
+            color: white; border-radius: 15px; margin-top: 20px; font-family: 'Poppins';
+        }
+        .btn-glitch {
+            width: 100%; padding: 25px; margin-top: 30px; background: var(--primary);
+            border: none; font-family: 'Orbitron'; font-weight: 900; font-size: 1.2rem;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SharkMC | GALAXY DASHBOARD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Poppins:wght@300;600;900&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #00d2ff; 
+            --accent: #0072ff;
+            --bg: #020408; 
+            --card: rgba(13, 22, 36, 0.7); 
+            --green: #00ff88; 
+            --gold: #ffcc00;
+            --border: rgba(0, 210, 255, 0.2);
+        }
+
+        * { box-sizing: border-box; cursor: crosshair; }
+        body, html { 
+            margin: 0; padding: 0; font-family: 'Poppins', sans-serif; 
+            background: var(--bg); color: white; overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- FONDO DE PARTÍCULAS (EFECTO LOCO) --- */
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1; animation: moveGrid 20s linear infinite;
+        }
+        @keyframes moveGrid { from { background-position: 0 0; } to { background-position: 50px 50px; } }
+
+        /* --- PANTALLA DE ENTRADA ÉPICA --- */
+        #welcome-screen {
+            position: fixed; width: 100%; height: 100vh; background: black;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 10000; transition: 1.5s cubic-bezier(1,0,0,1);
+        }
+        .shark-glow {
+            width: 250px; filter: drop-shadow(0 0 50px var(--primary));
+            animation: breath 3s infinite ease-in-out;
+        }
+        @keyframes breath { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px var(--primary)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 70px var(--primary)); } }
+
+        .btn-start {
+            margin-top: 50px; padding: 20px 60px; font-family: 'Orbitron';
+            background: transparent; border: 2px solid var(--primary); color: var(--primary);
+            font-weight: 900; text-transform: uppercase; border-radius: 5px;
+            box-shadow: 0 0 20px var(--border); transition: 0.5s;
+        }
+        .btn-start:hover { background: var(--primary); color: black; box-shadow: 0 0 50px var(--primary); transform: skew(-10deg); }
+
+        /* --- NAVEGACIÓN --- */
+        nav { 
+            position: sticky; top: 0; z-index: 1000; padding: 20px 5%; 
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; border-bottom: 1px solid var(--border);
+        }
+        .nav-title { font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; color: var(--primary); }
+
+        .container { max-width: 1200px; margin: auto; padding: 50px 20px; }
+
+        /* --- HEADER DASHBOARD (EL LOGO VOLVIÓ) --- */
+        .header-box { text-align: center; margin-bottom: 100px; }
+        .header-box img { width: 220px; filter: drop-shadow(0 0 30px var(--primary)); margin-bottom: 20px; }
+        .header-box h1 { font-family: 'Orbitron'; font-size: 3.5rem; margin: 0; text-shadow: 0 0 20px var(--primary); }
+        .header-box p { font-size: 1.2rem; color: var(--text-muted); letter-spacing: 3px; }
+
+        .ip-neon {
+            display: inline-block; padding: 20px 50px; margin-top: 30px;
+            background: rgba(0, 210, 255, 0.1); border: 2px solid var(--primary);
+            font-family: 'Orbitron'; font-size: 1.5rem; color: var(--primary);
+            border-radius: 0 20px 0 20px; transition: 0.3s;
+        }
+        .ip-neon:hover { background: var(--primary); color: black; transform: scale(1.1); }
+
+        /* --- CARTAS ESTILO GLASS --- */
+        .glass-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 30px; margin-bottom: 40px; overflow: hidden;
+            backdrop-filter: blur(10px); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        .card-head { padding: 35px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(0, 210, 255, 0.05); }
+        .card-head h3 { margin: 0; font-family: 'Orbitron'; font-size: 1.2rem; display: flex; align-items: center; gap: 15px; }
+        .card-body { max-height: 0; overflow: hidden; transition: 1s cubic-bezier(0,1,0,1); padding: 0 35px; }
+        .card-body.open { max-height: 5000px; padding: 40px 35px; }
+
+        /* --- REGLAS (MÁS LOCAS) --- */
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .rule-item { 
+            padding: 20px; background: rgba(255,255,255,0.02); border-radius: 15px; 
+            border-right: 2px solid transparent; transition: 0.3s;
+        }
+        .rule-item:hover { background: rgba(0, 210, 255, 0.1); border-right: 5px solid var(--primary); transform: translateX(10px); }
+        .rule-item b { color: var(--primary); font-family: 'Orbitron'; }
+
+        /* --- MAPA Y RED --- */
+        .map-frame { border-radius: 20px; border: 2px solid var(--border); overflow: hidden; margin-bottom: 30px; }
+        .map-frame img { width: 100%; filter: hue-rotate(180deg) brightness(0.7); transition: 1s; }
+        .map-frame img:hover { filter: hue-rotate(0deg) brightness(1); }
+
+        /* --- ESTRELLAS --- */
+        .star-box { display: flex; justify-content: center; gap: 30px; padding: 40px 0; }
+        .star-box i { font-size: 4rem; color: #111; transition: 0.4s; text-shadow: 0 0 5px black; }
+        .star-box i.active { color: var(--gold); text-shadow: 0 0 30px var(--gold); transform: scale(1.3) rotate(15deg); }
+
+        /* --- FORMULARIOS --- */
+        input, textarea { 
+            width: 100%; padding: 25px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); 
+            color: white; border-radius: 15px; margin-top: 20px; font-family: 'Poppins';
+        }
+        .btn-glitch {
+            width: 100%; padding: 25px; margin-top: 30px; background: var(--primary);
+            border: none; font-family: 'Orbitron'; font-weight: 900; font-size: 1.2rem;
+            clip-path: polygon(7% 0, 100% 0%, 93% 100%, 0% 100%); transition: 0.3s;
+        }
+        .btn-glitch:hover { filter: brightness(1.2); letter-spacing: 5px; background: white; }
 
         /* --- WHATSAPP --- */
-        .wa-button { position: fixed; bottom: 40px; right: 40px; background: #25d366; width: 75px; height: 75px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 45px; color: white; z-index: 8000; text-decoration: none; box-shadow: 0 20px 40px rgba(37,211,102,0.4); }
+        .wa-float { 
+            position: fixed; bottom: 40px; right: 40px; background: #25d366; 
+            width: 80px; height: 80px; border-radius: 20px; display: flex; 
+            align-items: center; justify-content: center; font-size: 50px; 
+            color: white; z-index: 9000; box-shadow: 0 0 30px rgba(37,211,102,0.5);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        /* --- FOOTER --- */
-        footer { background: #020306; padding: 80px 8% 40px; border-top: 1px solid var(--border); margin-top: 100px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; }
-        .footer-col h4 { color: white; font-family: 'Orbitron', sans-serif; margin-bottom: 25px; }
-        .footer-col p, .footer-col a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin-bottom: 12px; display: block; }
-        .footer-col a:hover { color: var(--primary); }
-        .footer-bottom { text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); font-size: 0.8rem; color: #444; }
+        footer { text-align: center; padding: 100px 20px; border-top: 1px solid var(--border); opacity: 0.5; font-family: 'Orbitron'; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <a href="https://wa.me/593987749885" class="wa-button" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/593987749885" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <div id="welcome-screen">
-        <img src="https://static.wixstatic.com/media/c545ec_d9436cd807b84cb19b96331a9c928d12~mv2.png/v1/fill/w_180,h_180,al_c,q_95/logo.png" class="loader-logo" alt="SharkMC">
-        <div class="sys-info">SISTEMA DE RED EN LÍNEA</div>
-        <h1 class="welcome-title">Bienvenido a la Central de<br><span>SharkMC Network</span></h1>
-        <div class="status-badge"><div class="pulse-dot"></div> SERVICIOS OPERATIVOS 2026</div>
-        <button class="btn-main" onclick="startApp()">Inicializar Panel Pro</button>
+        <img src="https://static.wixstatic.com/media/c545ec_d9436cd807b84cb19b96331a9c928d12~mv2.png/v1/fill/w_180,h_180,al_c,q_95/logo.png" class="shark-glow" alt="SharkMC">
+        <h1 class="welcome-title" style="font-family: 'Orbitron'; color: white;">INICIANDO <span style="color:var(--primary)">SHARK.EXE</span></h1>
+        <button class="btn-start" onclick="enter()">ACCEDER AL NÚCLEO</button>
     </div>
 
     <nav>
-        <div class="nav-logo">SHARK<span style="color:var(--primary)">MC</span></div>
-        <div class="nav-links">
-            <span>Inicio</span>
-            <span>Tienda</span>
-            <span>Soporte</span>
-            <i class="fas fa-search"></i>
-        </div>
+        <div class="nav-title">SHARKMC_OS</div>
+        <div style="color: var(--green); font-family: 'Orbitron'; font-size: 0.8rem;">● SERVER_ONLINE_2026</div>
     </nav>
 
     <div class="container">
-        <div class="hero-section">
-            <img src="https://static.wixstatic.com/media/c545ec_d9436cd807b84cb19b96331a9c928d12~mv2.png/v1/fill/w_180,h_180,al_c,q_95/logo.png" alt="Shark Logo">
-            <h2>DASHBOARD DE CONTROL</h2>
-            <div class="specs-bar">
-                <div class="spec-item"><i class="fas fa-microchip"></i> AMD Ryzen 5 5600X</div>
-                <div class="spec-item"><i class="fas fa-memory"></i> 128GB RAM DDR4</div>
-                <div class="spec-item"><i class="fas fa-tachometer-alt"></i> 10 Gbps Network</div>
-                <div class="spec-item"><i class="fas fa-map-marker-alt"></i> Miami, Florida</div>
-            </div>
-            <div class="ip-card" onclick="copyIP()">IP: SHARKMC.US (Copiar IP)</div>
+        <div class="header-box">
+            <img src="https://static.wixstatic.com/media/c545ec_d9436cd807b84cb19b96331a9c928d12~mv2.png/v1/fill/w_180,h_180,al_c,q_95/logo.png" alt="SharkMC Logo">
+            <h1>SHARKMC NETWORK</h1>
+            <p>RYZEN 5 5600X // 128GB RAM // MIAMI NODE</p>
+            <div class="ip-neon" onclick="copyIP()">IP: SHARKMC.US</div>
         </div>
 
-        <a href="https://sharkmcevo.tebex.io/" target="_blank" class="store-banner">
-            <i class="fas fa-shopping-cart"></i> VISITAR TIENDA SHARKMC
+        <a href="https://sharkmcevo.tebex.io/" target="_blank" style="text-decoration:none">
+            <div class="btn-glitch" style="background: var(--gold); color: black; text-align: center;">ENTRAR A LA STORE (TEBEX)</div>
         </a>
 
-        <div class="card-pro">
-            <div class="card-pro-header" onclick="toggleCard('loc-card')">
-                <h3><i class="fas fa-network-wired icon-deco"></i> ESTADO DE RED GLOBAL</h3>
-                <i class="fas fa-chevron-down"></i>
+        <div class="glass-card">
+            <div class="card-head" onclick="toggle('red')">
+                <h3><i class="fas fa-satellite-dish"></i> LOCALIZACIÓN DE NODOS</h3>
+                <i class="fas fa-plus"></i>
             </div>
-            <div id="loc-card" class="card-pro-content open">
-                <div class="map-container">
+            <div id="red" class="card-body open">
+                <div class="map-frame">
                     <img src="https://static.wixstatic.com/media/c545ec_d9436cd807b84cb19b96331a9c928d12~mv2.png/v1/fill/w_922,h_525,al_c,lg_1,q_90,enc_avif,quality_auto/map-dark-theme_edited.png" alt="Mapa">
                 </div>
-                <div class="ping-grid">
-                    <div class="ping-card"><span>🇺🇸 Dallas, TX</span> <span class="ping-status">92 MS</span></div>
-                    <div class="ping-card"><span>🇺🇸 Buffalo, NY</span> <span class="ping-status">103 MS</span></div>
-                    <div class="ping-card"><span>🇺🇸 Los Angeles</span> <span class="ping-status">138 MS</span></div>
-                    <div class="ping-card"><span>🇩🇪 Frankfurt</span> <span class="ping-status">198 MS</span></div>
+                <div class="rules-grid">
+                    <div class="rule-item">🇺🇸 DALLAS <span style="float:right; color:var(--green)">92ms</span></div>
+                    <div class="rule-item">🇺🇸 BUFFALO <span style="float:right; color:var(--green)">103ms</span></div>
+                    <div class="rule-item">🇩🇪 GERMANY <span style="float:right; color:var(--green)">198ms</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="card-pro">
-            <div class="card-pro-header" onclick="toggleCard('rules-card')">
-                <h3><i class="fas fa-book-open icon-deco"></i> REGLAMENTO OFICIAL DEL SERVIDOR</h3>
-                <i class="fas fa-chevron-down"></i>
+        <div class="glass-card">
+            <div class="card-head" onclick="toggle('reglas')">
+                <h3><i class="fas fa-terminal"></i> PROTOCOLOS DE CONDUCTA (13)</h3>
+                <i class="fas fa-plus"></i>
             </div>
-            <div id="rules-card" class="card-pro-content">
-                <div class="rules-wrapper">
-                    <div class="rule-box"><b>01.</b> Respeto y Cortesía total entre todos los miembros de la comunidad.</div>
-                    <div class="rule-box"><b>02.</b> Prohibido terminantemente realizar Spam o Flood en canales públicos.</div>
-                    <div class="rule-box"><b>03.</b> No se permiten Estafas ni ningún tipo de engaño a otros jugadores.</div>
-                    <div class="rule-box"><b>04.</b> Respeto absoluto a la Privacidad (Prohibido el Doxxing).</div>
-                    <div class="rule-box"><b>05.</b> La seguridad de tu cuenta es tu única y exclusiva responsabilidad.</div>
-                    <div class="rule-box"><b>06.</b> Prohibida la Venta de artículos por Dinero Real de forma externa.</div>
-                    <div class="rule-box"><b>07.</b> No se permite Material NSFW o contenido altamente inadecuado.</div>
-                    <div class="rule-box"><b>08.</b> Es obligatorio prestar atención y seguir los anuncios del Staff.</div>
-                    <div class="rule-box"><b>09.</b> Reportar cualquier falta o bug de forma inmediata al equipo.</div>
-                    <div class="rule-box"><b>10.</b> Uso correcto y moderado de los Canales de Voz oficiales.</div>
-                    <div class="rule-box"><b>11.</b> Seguir siempre las instrucciones directas dadas por el Staff.</div>
-                    <div class="rule-box"><b>12.</b> Cualquier vacío legal en las reglas queda a criterio del Staff.</div>
-                    <div class="rule-box"><b>13.</b> Prohibida la Suplantación de Identidad de otros usuarios o Staff.</div>
+            <div id="reglas" class="card-body">
+                <div class="rules-grid">
+                    <div class="rule-item"><b>01.</b> Respeto total entre todos los miembros.</div>
+                    <div class="rule-item"><b>02.</b> Prohibido Spam o Flood en canales.</div>
+                    <div class="rule-item"><b>03.</b> No se permiten Estafas ni engaños.</div>
+                    <div class="rule-item"><b>04.</b> Respeto a la Privacidad (No Doxxing).</div>
+                    <div class="rule-item"><b>05.</b> La cuenta es responsabilidad propia.</div>
+                    <div class="rule-item"><b>06.</b> No Ventas por Dinero Real externas.</div>
+                    <div class="rule-item"><b>07.</b> No Material NSFW o Inadecuado.</div>
+                    <div class="rule-item"><b>08.</b> Seguir todos los anuncios del Staff.</div>
+                    <div class="rule-item"><b>09.</b> Reportar faltas o errores de inmediato.</div>
+                    <div class="rule-item"><b>10.</b> Uso correcto de los Canales de Voz.</div>
+                    <div class="rule-item"><b>11.</b> Seguir instrucciones directas del Staff.</div>
+                    <div class="rule-item"><b>12.</b> Vacíos legales a criterio del Staff.</div>
+                    <div class="rule-item"><b>13.</b> Prohibida la Suplantación de Identidad.</div>
                 </div>
             </div>
         </div>
 
-        <div class="card-pro">
-            <div class="card-pro-header" onclick="toggleCard('rate-card')">
-                <h3><i class="fas fa-heart icon-deco"></i> VALORAR EXPERIENCIA DASHBOARD</h3>
-                <i class="fas fa-chevron-down"></i>
+        <div class="glass-card">
+            <div class="card-head" onclick="toggle('star')">
+                <h3><i class="fas fa-star"></i> VALORAR SISTEMA</h3>
+                <i class="fas fa-plus"></i>
             </div>
-            <div id="rate-card" class="card-pro-content">
-                <div style="text-align: center;">
-                    <p style="color: var(--text-muted);">¿Qué te parece la nueva interfaz de SharkMC?</p>
-                    <div class="star-rating">
-                        <i class="fas fa-star" onclick="setStars(1)"></i>
-                        <i class="fas fa-star" onclick="setStars(2)"></i>
-                        <i class="fas fa-star" onclick="setStars(3)"></i>
-                        <i class="fas fa-star" onclick="setStars(4)"></i>
-                        <i class="fas fa-star" onclick="setStars(5)"></i>
-                    </div>
-                    <div class="input-group">
-                        <label>Tu Opinión</label>
-                        <textarea id="rate-msg" placeholder="Escribe aquí tu feedback para mejorar..."></textarea>
-                    </div>
-                    <button class="btn-submit" onclick="sendRating()">Enviar Valoración</button>
+            <div id="star" class="card-body">
+                <div class="star-box">
+                    <i class="fas fa-star" onclick="setRate(1)"></i>
+                    <i class="fas fa-star" onclick="setRate(2)"></i>
+                    <i class="fas fa-star" onclick="setRate(3)"></i>
+                    <i class="fas fa-star" onclick="setRate(4)"></i>
+                    <i class="fas fa-star" onclick="setRate(5)"></i>
                 </div>
+                <textarea id="rate-txt" placeholder="DATA_INPUT: Escribe tu feedback..."></textarea>
+                <button class="btn-glitch" onclick="sendRate()">UPLOAD_DATA</button>
             </div>
         </div>
 
-        <div class="card-pro">
-            <div class="card-pro-header" onclick="toggleCard('tk-card')">
-                <h3><i class="fas fa-ticket-alt icon-deco"></i> SISTEMA DE TICKETS Y REPORTES</h3>
-                <i class="fas fa-chevron-down"></i>
+        <div class="glass-card">
+            <div class="card-head" onclick="toggle('tk')">
+                <h3><i class="fas fa-envelope-open-text"></i> COMUNICACIÓN STAFF</h3>
+                <i class="fas fa-plus"></i>
             </div>
-            <div id="tk-card" class="card-pro-content">
-                <div class="input-group">
-                    <label>Identificación de Usuario</label>
-                    <input type="text" id="tk-user" placeholder="Ej: SharkPlayer#1234 o UsuarioMC">
-                </div>
-                <div class="input-group">
-                    <label>Detalle del Ticket</label>
-                    <textarea id="tk-msg" rows="5" placeholder="Explica detalladamente tu situación o reporte para que el Staff pueda ayudarte..."></textarea>
-                </div>
-                <button class="btn-submit" onclick="sendTicket()">Abrir Ticket de Soporte</button>
+            <div id="tk" class="card-body">
+                <input type="text" id="tk-u" placeholder="USER_ID: Nombre de usuario">
+                <textarea id="tk-m" rows="5" placeholder="MESSAGE_DATA: Describe tu problema..."></textarea>
+                <button class="btn-glitch" onclick="sendTicket()">OPEN_TICKET</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>SHARKMC</h4>
-                <p>Proporcionando el mejor rendimiento y latencia para la comunidad desde 2026.</p>
-                <div style="display:flex; gap:15px; font-size:1.5rem; color:var(--primary)">
-                    <i class="fab fa-discord"></i> <i class="fab fa-instagram"></i> <i class="fab fa-twitter"></i>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>ENLACES RÁPIDOS</h4>
-                <a href="#">Términos y Condiciones</a>
-                <a href="#">Política de Privacidad</a>
-                <a href="#">Wiki del Servidor</a>
-                <a href="#">Mapa Dinámico</a>
-            </div>
-            <div class="footer-col">
-                <h4>ESTADO NODO</h4>
-                <p>CPU Load: 12%</p>
-                <p>Uptime: 99.9%</p>
-                <p>Versión: 1.20.x - 1.21.x</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; 2026 SHARKMC NETWORK. TODOS LOS DERECHOS RESERVADOS. <br>
-            DESARROLLADO PARA EL ALTO RENDIMIENTO SOBRE RYZEN INFRASTRUCTURE.
-        </div>
+        SHARKMC NETWORK // CORE_v3.0 // 2026 // NO RIGHTS RESERVED - JUST GAMING
     </footer>
 
     <script>
-        let currentRating = 0;
+        let r = 0;
         const hook = "https://discord.com/api/webhooks/1458676177584525404/Nu7dALR24DEXui_rhF9HhgamZCmffbinVL7zpcoCgmEWQvOYLiOiRKt2lIF4MJzcEKkY";
 
-        function startApp() { document.getElementById('welcome-screen').style.transform = 'translateY(-100%)'; }
-        function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
-        function copyIP() { navigator.clipboard.writeText("sharkmc.us"); alert("✅ IP SharkMC.us copiada con éxito."); }
-
-        function setStars(n) {
-            currentRating = n;
-            document.querySelectorAll('.star-rating i').forEach((s, i) => { s.classList.toggle('active', i < n); });
+        function enter() { document.getElementById('welcome-screen').style.transform = 'scale(0) rotate(360deg)'; }
+        function toggle(id) { document.getElementById(id).classList.toggle('open'); }
+        function copyIP() { navigator.clipboard.writeText("sharkmc.us"); alert("IP SHARKMC.US COPIADA AL NÚCLEO."); }
+        
+        function setRate(n) {
+            r = n;
+            document.querySelectorAll('.star-box i').forEach((s, i) => { s.classList.toggle('active', i < n); });
         }
 
-        async function sendRating() {
-            if(currentRating === 0) return alert("❌ Selecciona una puntuación.");
-            const msg = document.getElementById('rate-msg').value || "Sin mensaje";
-            const data = { embeds: [{ 
-                title: "⭐ VALORACIÓN DEL DASHBOARD", 
-                color: 15844367, 
-                fields: [{name:"Puntos", value:"⭐".repeat(currentRating)}, {name:"Comentario", value: msg}] 
-            }]};
-            await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+        async function sendRate() {
+            if(!r) return alert("SELECT STARS");
+            const m = document.getElementById('rate-txt').value;
+            await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
+                embeds: [{ title: "🌟 STAR_FEEDBACK", color: 16761095, fields: [{name:"RATE", value:"⭐".repeat(r)}, {name:"MSG", value: m || "NULL"}] }]
+            })});
             alert("¡Gracias por calificar la página! Nuestro equipo se pondrá en contacto contigo muy pronto.");
-            toggleCard('rate-card');
         }
 
         async function sendTicket() {
-            const user = document.getElementById('tk-user').value;
-            const msg = document.getElementById('tk-msg').value;
-            if(!user || !msg) return alert("❌ Completa todos los campos.");
-            const data = { embeds: [{ 
-                title: "📩 NUEVO TICKET GENERADO", 
-                color: 3447003, 
-                fields: [{name:"Remitente", value:user}, {name:"Mensaje", value:msg}],
-                footer: { text: "SharkMC Support System" },
-                timestamp: new Date()
-            }]};
-            await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+            const u = document.getElementById('tk-u').value;
+            const m = document.getElementById('tk-m').value;
+            if(!u || !m) return alert("DATA MISSING");
+            await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
+                embeds: [{ title: "📩 NEW_TICKET_DATA", color: 52479, fields: [{name:"USER", value:u}, {name:"MSG", value: m}] }]
+            })});
             alert("¡Gracias por reportar o crear tu ticket! Nuestro equipo se pondrá en contacto contigo muy pronto.");
-            document.getElementById('tk-user').value = "";
-            document.getElementById('tk-msg').value = "";
         }
     </script>
 </body>
-</html>
+</html>        }
+        .btn-glitch:hover { filter: brightness(1.2); letter-spacing: 5px; background: white; }
+
+        /* --- WHATSAPP --- */
+        .wa-float { 
+            position: fixed; bottom: 40px; right: 40px; background: #25d366; 
+            width: 80px; height: 80
