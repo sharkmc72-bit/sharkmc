@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SharkMC | Dashboard Profesional</title>
+    <title>SharkMC | Dashboard Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
@@ -11,13 +11,19 @@
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* --- PANTALLA DE BIENVENIDA --- */
+        /* --- PANTALLA DE BIENVENIDA (CORREGIDA SEGÚN CAPTURA) --- */
         #welcome-screen {
             position: fixed; width: 100%; height: 100vh; background: var(--bg);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 3000; transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
         }
-        .btn-enter { background: var(--primary); color: black; padding: 15px 40px; border: none; border-radius: 50px; font-weight: 800; cursor: pointer; margin-top: 25px; text-transform: uppercase; transition: 0.3s; }
+        #welcome-screen img { width: 150px; margin-bottom: 20px; }
+        .system-status { color: var(--primary); font-size: 0.8rem; font-weight: 800; letter-spacing: 3px; margin-bottom: 10px; }
+        .welcome-title { font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 15px; }
+        .welcome-title span { color: var(--primary); }
+        .online-dot { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; margin-bottom: 30px; }
+        .dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); }
+        .btn-enter { background: var(--primary); color: black; padding: 12px 35px; border: none; border-radius: 50px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
 
         /* --- MENÚ LATERAL --- */
         #side-menu {
@@ -27,7 +33,6 @@
         }
         #side-menu.active { left: 0; }
         .menu-link { display: block; color: white; text-decoration: none; padding: 15px; font-weight: 600; border-radius: 10px; margin-bottom: 10px; }
-        .menu-link:hover { background: var(--primary); color: black; }
 
         /* --- NAVEGACIÓN --- */
         nav { 
@@ -39,7 +44,7 @@
 
         .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
 
-        /* SECCIONES DESPLEGABLES */
+        /* SECCIONES */
         .collapsible-card { background: var(--card); border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
         .card-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); }
         .card-content { max-height: 0; overflow: hidden; transition: 0.5s ease-out; padding: 0 20px; }
@@ -51,16 +56,16 @@
         .fa-star.active { color: var(--gold); text-shadow: 0 0 15px var(--gold); }
 
         /* UBICACIÓN */
-        .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .loc-item { background: #0d141f; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; border: 1px solid rgba(255,255,255,0.05); }
-        .ping { color: var(--green); font-weight: 800; }
+        .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+        .loc-item { background: #0d141f; padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        .ping { color: var(--green); font-weight: 800; font-size: 0.85rem; }
 
         /* BOTONES E INPUTS */
-        .btn-tienda { display: block; width: 100%; max-width: 500px; margin: 30px auto; background: var(--gold); color: black; text-align: center; padding: 20px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 1.2rem; }
-        input, select, textarea { width: 100%; padding: 15px; background: #06090f; border: 1px solid #2d3748; color: white; border-radius: 10px; margin-top: 10px; font-family: inherit; }
+        .btn-tienda { display: block; width: 100%; max-width: 450px; margin: 30px auto; background: var(--gold); color: black; text-align: center; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 1.1rem; }
+        input, textarea { width: 100%; padding: 15px; background: #06090f; border: 1px solid #2d3748; color: white; border-radius: 10px; margin-top: 10px; font-family: inherit; }
         .btn-send { width: 100%; padding: 18px; background: var(--primary); border: none; border-radius: 10px; font-weight: 900; margin-top: 15px; cursor: pointer; }
 
-        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 2000; text-decoration: none; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; z-index: 2000; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -68,37 +73,36 @@
     <a href="https://wa.me/593987749885" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <div id="welcome-screen">
-        <img src="logo.png" style="width: 150px; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary));">
-        <div style="color: var(--primary); font-weight: 800; letter-spacing: 2px;">SYSTEM STATUS</div>
-        <h1 style="text-align: center; font-weight: 900;">Bienvenido al estado de <span style="color: var(--primary);">SharkMC</span></h1>
-        <button class="btn-enter" onclick="start()">Entrar al Panel Pro</button>
+        <img src="logo.png">
+        <div class="system-status">SYSTEM STATUS</div>
+        <h1 class="welcome-title">Bienvenido al estado de <span>SharkMC</span></h1>
+        <div class="online-dot"><div class="dot"></div> SERVIDOR ONLINE 2026</div>
+        <button class="btn-enter" onclick="start()">Entrar al Panel</button>
     </div>
 
     <div id="side-menu">
-        <div style="text-align: right;"><i class="fas fa-times" onclick="toggleMenu()" style="cursor:pointer; font-size: 1.8rem; color: var(--primary);"></i></div>
+        <div style="text-align: right;"><i class="fas fa-times" onclick="toggleMenu()" style="cursor:pointer; font-size: 1.5rem;"></i></div>
         <img src="logo.png" style="width: 100px; display: block; margin: 20px auto;">
         <a href="#" class="menu-link" onclick="toggleMenu()">Inicio</a>
         <a href="#rules-sec" class="menu-link" onclick="toggleMenu()">Reglamento</a>
         <a href="#rate-sec" class="menu-link" onclick="toggleMenu()">Calificar Web</a>
-        <a href="https://sharkmcevo.tebex.io/" class="menu-link" target="_blank" style="background: var(--gold); color: black;">IR A LA TIENDA</a>
+        <a href="https://sharkmcevo.tebex.io/" class="menu-link" target="_blank" style="background: var(--gold); color: black;">TIENDA</a>
     </div>
 
     <nav>
-        <div style="font-weight: 900; font-size: 1.6rem;">SHARK<span style="color: var(--primary);">MC</span></div>
-        <div onclick="toggleMenu()" style="cursor:pointer; color: var(--primary); font-size: 1.8rem;"><i class="fas fa-bars"></i></div>
+        <div style="font-weight: 900; font-size: 1.4rem;">SHARKMC</div>
+        <div onclick="toggleMenu()" style="cursor:pointer; color: var(--primary); font-size: 1.5rem;"><i class="fas fa-bars"></i></div>
     </nav>
 
     <div class="container">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <img src="logo.png" style="width: 180px; filter: drop-shadow(0 0 20px var(--primary));">
-            <h2 style="font-size: 2.8rem; font-weight: 900; margin: 10px 0;">PANEL DE CONTROL</h2>
-            <p style="color: #718096; font-weight: 600;">Miami, USA | Ryzen 5 5600X</p>
-            <div style="display:inline-block; padding: 12px 35px; border: 2px dashed var(--primary); border-radius: 12px; cursor: pointer; font-weight: 900; color: var(--primary);" onclick="copyIP()">IP: SHARKMC.US</div>
+        <div style="text-align: center; margin-bottom: 40px;">
+            <img src="logo.png" style="width: 150px; filter: drop-shadow(0 0 20px var(--primary)); margin-bottom: 10px;">
+            <h2 style="font-size: 2.5rem; font-weight: 900; margin: 0;">PANEL DE CONTROL</h2>
+            <p style="color: #718096; font-weight: 600;">Ubicación: Miami, USA | Hardware: Ryzen 5 5600X</p>
+            <div style="display:inline-block; padding: 10px 25px; border: 2px dashed var(--primary); border-radius: 12px; cursor: pointer; font-weight: 800; color: var(--primary); margin-top: 15px;" onclick="copyIP()">IP: SHARKMC.US (Click para copiar)</div>
         </div>
 
-        <a href="https://sharkmcevo.tebex.io/" target="_blank" class="btn-tienda">
-            <i class="fas fa-shopping-bag"></i> ENTRAR A LA TIENDA DE SHARKMC
-        </a>
+        <a href="https://sharkmcevo.tebex.io/" target="_blank" class="btn-tienda">IR A LA TIENDA OFICIAL</a>
 
         <div class="collapsible-card" id="rate-sec">
             <div class="card-header" onclick="toggleSection('rate-content')">
@@ -106,7 +110,7 @@
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="rate-content" class="card-content">
-                <div style="text-align: center; padding: 20px;">
+                <div style="text-align: center; padding-bottom: 20px;">
                     <div class="stars">
                         <i class="fas fa-star" onclick="setRate(1)"></i>
                         <i class="fas fa-star" onclick="setRate(2)"></i>
@@ -114,7 +118,7 @@
                         <i class="fas fa-star" onclick="setRate(4)"></i>
                         <i class="fas fa-star" onclick="setRate(5)"></i>
                     </div>
-                    <textarea id="rate-comment" placeholder="Comentario..."></textarea>
+                    <textarea id="rate-comment" placeholder="¿Qué te pareció la página?"></textarea>
                     <button class="btn-send" onclick="sendRating()">ENVIAR CALIFICACIÓN</button>
                 </div>
             </div>
@@ -122,52 +126,53 @@
 
         <div class="collapsible-card">
             <div class="card-header" onclick="toggleSection('loc-sec')">
-                <h3 style="font-weight: 800;"><i class="fas fa-globe"></i> UBICACIÓN GLOBAL Y LATENCIA</h3>
+                <h3 style="font-weight: 800;"><i class="fas fa-globe"></i> UBICACIONES Y LATENCIA</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="loc-sec" class="card-content open">
-                <img src="mapa.png" style="width:100%; border-radius:12px; margin-bottom: 25px;">
+                <img src="mapa.png" style="width:100%; border-radius:10px; margin-bottom: 20px;">
                 <div class="loc-grid">
-                    <div class="loc-item"><span>🇺🇸 Miami, Florida</span> <span class="ping">12ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇺🇸 Buffalo, NY</span> <span class="ping">35ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇩🇪 Alemania</span> <span class="ping">105ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇺🇸 Buffalo, NY</span> <span class="ping">103ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇺🇸 Dallas, Texas</span> <span class="ping">92ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇺🇸 Los Angeles, CA</span> <span class="ping">138ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇩🇪 Alemania</span> <span class="ping">198ms <i class="fas fa-signal"></i></span></div>
                 </div>
             </div>
         </div>
 
         <div class="collapsible-card" id="rules-sec">
             <div class="card-header" onclick="toggleSection('rules-content')">
-                <h3 style="font-weight: 800;"><i class="fas fa-gavel"></i> REGLAMENTO OFICIAL (13 REGLAS)</h3>
+                <h3 style="font-weight: 800;"><i class="fas fa-gavel"></i> REGLAMENTO (13 REGLAS)</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="rules-content" class="card-content">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; padding-bottom: 20px;">
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>1.</b> Respeto y Cortesía total.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>2.</b> Prohibido Spam/Flood.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>3.</b> No se permiten Estafas.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>4.</b> Respeto Privacidad (No Dox).</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>5.</b> Responsabilidad de Cuenta.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>6.</b> No Ventas por Dinero Real.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>7.</b> No Material NSFW/Inapropiado.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>8.</b> Escucha Anuncios del Staff.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>9.</b> Reporta Faltas al Staff.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>10.</b> Uso correcto de Canales Voz.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>11.</b> Sigue Instrucciones del Staff.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>12.</b> Vacíos legales a criterio Staff.</div>
-                    <div style="padding: 10px; border-bottom: 1px solid #2d3748;"><b>13.</b> Prohibida la Suplantación.</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; padding-bottom: 20px;">
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">1. Respeto total.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">2. No Spam/Flood.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">3. No Estafas.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">4. No Doxxing.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">5. Responsabilidad cuenta.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">6. No ventas reales.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">7. No NSFW.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">8. Seguir anuncios.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">9. Reportar faltas.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">10. Uso canales voz.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">11. Caso al Staff.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">12. Vacíos legales Staff.</div>
+                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">13. No suplantación.</div>
                 </div>
             </div>
         </div>
 
         <div class="collapsible-card">
             <div class="card-header" onclick="toggleSection('tk-content')">
-                <h3 style="font-weight: 800;"><i class="fas fa-ticket-alt"></i> CREAR TICKET AL STAFF</h3>
+                <h3 style="font-weight: 800;"><i class="fas fa-ticket-alt"></i> SISTEMA DE TICKETS</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="tk-content" class="card-content">
-                <input type="text" id="tk-user" placeholder="Usuario (Discord/MC)">
-                <textarea id="tk-msg" rows="4" placeholder="Explica tu problema..."></textarea>
-                <button class="btn-send" onclick="sendTicket()">ENVIAR A DISCORD</button>
+                <input type="text" id="tk-user" placeholder="Tu usuario">
+                <textarea id="tk-msg" rows="4" placeholder="Describe tu problema..."></textarea>
+                <button class="btn-send" onclick="sendTicket()">ENVIAR TICKET</button>
             </div>
         </div>
     </div>
@@ -187,21 +192,21 @@
         }
 
         async function sendRating() {
-            if(currentRating === 0) return alert("Selecciona estrellas");
-            const comment = document.getElementById('rate-comment').value;
-            const data = { embeds: [{ title: "⭐ CALIFICACIÓN", fields: [{name:"Puntos", value:"⭐".repeat(currentRating)}, {name:"Comentario", value: comment || "Sin mensaje"}] }] };
+            if(currentRating === 0) return alert("Por favor selecciona una estrella.");
+            const msg = document.getElementById('rate-comment').value;
+            const data = { embeds: [{ title: "⭐ NUEVA CALIFICACIÓN", fields: [{name:"Puntos", value:"⭐".repeat(currentRating)}, {name:"Comentario", value: msg || "Sin comentario"}] }] };
             await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-            alert("¡Gracias por calificar nuestra página! Se pondrán en contacto contigo pronto.");
+            alert("¡Gracias por calificar la página! Nuestro equipo se pondrá en contacto contigo muy pronto.");
             toggleSection('rate-content');
         }
 
         async function sendTicket() {
             const user = document.getElementById('tk-user').value;
             const msg = document.getElementById('tk-msg').value;
-            if(!user || !msg) return alert("Faltan datos");
-            const data = { embeds: [{ title: "📩 TICKET", fields: [{name:"Usuario", value:user}, {name:"Mensaje", value:msg}] }] };
+            if(!user || !msg) return alert("Completa los campos.");
+            const data = { embeds: [{ title: "📩 NUEVO TICKET", fields: [{name:"Usuario", value:user}, {name:"Mensaje", value:msg}] }] };
             await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-            alert("¡Gracias por reportar o crear tu ticket! Nuestro equipo se pondrá en contacto contigo muy pronto.");
+            alert("¡Gracias por crear un ticket! El staff se pondrá en contacto contigo a la brevedad.");
             document.getElementById('tk-msg').value = "";
         }
     </script>
