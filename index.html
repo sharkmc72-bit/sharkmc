@@ -3,69 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SharkMC | Dashboard Oficial</title>
+    <title>SharkMC | Dashboard Elite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00d2ff; --bg: #06090f; --card: #111a28; --green: #2ecc71; --gold: #f1c40f; }
-        * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; overflow-x: hidden; scroll-behavior: smooth; }
+        :root { 
+            --primary: #00d2ff; 
+            --primary-dark: #008eb0;
+            --bg: #06090f; 
+            --card: #111a28; 
+            --green: #2ecc71; 
+            --gold: #f1c40f;
+            --text-muted: #a0aec0;
+        }
+        * { box-sizing: border-box; outline: none; }
+        body, html { 
+            margin: 0; padding: 0; 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg); 
+            color: white; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+        }
 
-        /* --- PANTALLA DE BIENVENIDA (CORREGIDA SEGÚN CAPTURA) --- */
+        /* --- PANTALLA DE BIENVENIDA (ESTILO EXACTO) --- */
         #welcome-screen {
             position: fixed; width: 100%; height: 100vh; background: var(--bg);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 3000; transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+            z-index: 3000; transition: transform 0.9s cubic-bezier(0.85, 0, 0.15, 1);
         }
-        #welcome-screen img { width: 150px; margin-bottom: 20px; }
-        .system-status { color: var(--primary); font-size: 0.8rem; font-weight: 800; letter-spacing: 3px; margin-bottom: 10px; }
-        .welcome-title { font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 15px; }
+        #welcome-screen img { width: 140px; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(0,210,255,0.3)); }
+        .system-status { color: var(--primary); font-size: 0.75rem; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px; }
+        .welcome-title { font-size: 2.8rem; font-weight: 900; text-align: center; margin-bottom: 15px; }
         .welcome-title span { color: var(--primary); }
-        .online-dot { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; margin-bottom: 30px; }
-        .dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); }
-        .btn-enter { background: var(--primary); color: black; padding: 12px 35px; border: none; border-radius: 50px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .online-dot { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600; margin-bottom: 35px; background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 20px; }
+        .dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; box-shadow: 0 0 12px var(--green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .btn-enter { background: var(--primary); color: #000; padding: 14px 45px; border: none; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.4s; box-shadow: 0 10px 20px rgba(0,210,255,0.2); }
+        .btn-enter:hover { transform: scale(1.05); background: white; }
 
-        /* --- MENÚ LATERAL --- */
-        #side-menu {
-            position: fixed; left: -320px; top: 0; width: 300px; height: 100%;
-            background: var(--card); z-index: 2500; transition: 0.4s;
-            padding: 40px 20px; border-right: 2px solid var(--primary);
-        }
-        #side-menu.active { left: 0; }
-        .menu-link { display: block; color: white; text-decoration: none; padding: 15px; font-weight: 600; border-radius: 10px; margin-bottom: 10px; }
-
-        /* --- NAVEGACIÓN --- */
+        /* --- NAVEGACIÓN PRO --- */
         nav { 
-            position: sticky; top: 0; z-index: 1000; padding: 15px 5%; 
-            background: rgba(17, 26, 40, 0.9); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1000; padding: 18px 6%; 
+            background: rgba(6, 9, 15, 0.85); backdrop-filter: blur(12px);
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
+        .nav-logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
+        .nav-logo span { color: var(--primary); }
 
-        .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container { max-width: 1100px; margin: auto; padding: 40px 20px; }
 
-        /* SECCIONES */
-        .collapsible-card { background: var(--card); border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
-        .card-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); }
-        .card-content { max-height: 0; overflow: hidden; transition: 0.5s ease-out; padding: 0 20px; }
-        .card-content.open { max-height: 2000px; padding: 20px; }
+        /* --- HEADER DASHBOARD --- */
+        .dashboard-header { text-align: center; margin-bottom: 60px; animation: fadeIn 1s; }
+        .dashboard-header img { width: 160px; filter: drop-shadow(0 0 25px rgba(0,210,255,0.4)); margin-bottom: 20px; }
+        .dashboard-header h2 { font-size: 3rem; font-weight: 900; margin: 0; letter-spacing: -1px; }
+        .hardware-info { color: var(--text-muted); font-size: 0.95rem; margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
+        .ip-box { 
+            display: inline-block; padding: 12px 30px; border: 2px dashed var(--primary); 
+            border-radius: 12px; cursor: pointer; font-weight: 800; color: var(--primary); 
+            margin-top: 25px; transition: 0.3s; background: rgba(0,210,255,0.03);
+        }
+        .ip-box:hover { background: var(--primary); color: black; border-style: solid; }
 
-        /* CALIFICACIÓN */
-        .stars { display: flex; justify-content: center; gap: 15px; margin: 20px 0; font-size: 2.5rem; }
-        .fa-star { cursor: pointer; color: #2d3748; transition: 0.3s; }
-        .fa-star.active { color: var(--gold); text-shadow: 0 0 15px var(--gold); }
+        /* --- CARDS Y DESPLEGABLES --- */
+        .collapsible-card { background: var(--card); border-radius: 18px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .card-header { padding: 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); transition: 0.3s; }
+        .card-header:hover { background: rgba(255,255,255,0.07); }
+        .card-header h3 { margin: 0; font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 12px; }
+        .card-header i.status-icon { color: var(--primary); }
+        .card-content { max-height: 0; overflow: hidden; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 25px; }
+        .card-content.open { max-height: 2000px; padding: 25px; border-top: 1px solid rgba(255,255,255,0.05); }
 
-        /* UBICACIÓN */
-        .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-        .loc-item { background: #0d141f; padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-        .ping { color: var(--green); font-weight: 800; font-size: 0.85rem; }
+        /* --- GRID DE UBICACIONES --- */
+        .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .loc-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        .ping-val { color: var(--green); font-weight: 800; display: flex; align-items: center; gap: 5px; }
 
-        /* BOTONES E INPUTS */
-        .btn-tienda { display: block; width: 100%; max-width: 450px; margin: 30px auto; background: var(--gold); color: black; text-align: center; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 1.1rem; }
-        input, textarea { width: 100%; padding: 15px; background: #06090f; border: 1px solid #2d3748; color: white; border-radius: 10px; margin-top: 10px; font-family: inherit; }
-        .btn-send { width: 100%; padding: 18px; background: var(--primary); border: none; border-radius: 10px; font-weight: 900; margin-top: 15px; cursor: pointer; }
+        /* --- ESTRELLAS --- */
+        .stars { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .fa-star { cursor: pointer; color: #2d3748; font-size: 2.5rem; transition: 0.3s transform; }
+        .fa-star.active { color: var(--gold); text-shadow: 0 0 20px rgba(241,196,15,0.5); transform: scale(1.1); }
 
-        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; z-index: 2000; text-decoration: none; }
+        /* --- BOTONES E INPUTS --- */
+        .btn-tienda { display: block; width: 100%; max-width: 480px; margin: 40px auto; background: var(--gold); color: black; text-align: center; padding: 20px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 10px 25px rgba(241,196,15,0.2); }
+        .btn-tienda:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        input, textarea { width: 100%; padding: 18px; background: #0d141f; border: 1px solid #2d3748; color: white; border-radius: 12px; margin-top: 12px; font-family: inherit; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,210,255,0.1); }
+        .btn-send { width: 100%; padding: 20px; background: var(--primary); border: none; border-radius: 12px; font-weight: 900; margin-top: 20px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .btn-send:hover { background: white; color: black; }
+
+        /* --- REGLAS --- */
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .rule-card { padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 3px solid var(--primary); font-size: 0.9rem; }
+
+        /* --- FOOTER --- */
+        footer { background: #0a0e14; padding: 60px 5% 30px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--primary); margin-bottom: 20px; font-weight: 800; }
+        .footer-col p, .footer-col a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: block; margin-bottom: 10px; }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; color: var(--text-muted); font-size: 0.75rem; }
+
+        /* --- WHATSAPP --- */
+        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 2000; text-decoration: none; box-shadow: 0 10px 30px rgba(37,211,102,0.3); transition: 0.3s; }
+        .wa-float:hover { transform: scale(1.1) rotate(10deg); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -73,44 +117,45 @@
     <a href="https://wa.me/593987749885" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <div id="welcome-screen">
-        <img src="logo.png">
+        <img src="logo.png" alt="SharkMC Logo">
         <div class="system-status">SYSTEM STATUS</div>
         <h1 class="welcome-title">Bienvenido al estado de <span>SharkMC</span></h1>
         <div class="online-dot"><div class="dot"></div> SERVIDOR ONLINE 2026</div>
-        <button class="btn-enter" onclick="start()">Entrar al Panel</button>
-    </div>
-
-    <div id="side-menu">
-        <div style="text-align: right;"><i class="fas fa-times" onclick="toggleMenu()" style="cursor:pointer; font-size: 1.5rem;"></i></div>
-        <img src="logo.png" style="width: 100px; display: block; margin: 20px auto;">
-        <a href="#" class="menu-link" onclick="toggleMenu()">Inicio</a>
-        <a href="#rules-sec" class="menu-link" onclick="toggleMenu()">Reglamento</a>
-        <a href="#rate-sec" class="menu-link" onclick="toggleMenu()">Calificar Web</a>
-        <a href="https://sharkmcevo.tebex.io/" class="menu-link" target="_blank" style="background: var(--gold); color: black;">TIENDA</a>
+        <button class="btn-enter" onclick="start()">Entrar al Panel Pro</button>
     </div>
 
     <nav>
-        <div style="font-weight: 900; font-size: 1.4rem;">SHARKMC</div>
-        <div onclick="toggleMenu()" style="cursor:pointer; color: var(--primary); font-size: 1.5rem;"><i class="fas fa-bars"></i></div>
+        <div class="nav-logo">SHARK<span>MC</span></div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <i class="fab fa-discord" style="font-size: 1.3rem; cursor: pointer;"></i>
+            <i class="fas fa-bars" style="font-size: 1.3rem; cursor: pointer; color: var(--primary);"></i>
+        </div>
     </nav>
 
     <div class="container">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <img src="logo.png" style="width: 150px; filter: drop-shadow(0 0 20px var(--primary)); margin-bottom: 10px;">
-            <h2 style="font-size: 2.5rem; font-weight: 900; margin: 0;">PANEL DE CONTROL</h2>
-            <p style="color: #718096; font-weight: 600;">Ubicación: Miami, USA | Hardware: Ryzen 5 5600X</p>
-            <div style="display:inline-block; padding: 10px 25px; border: 2px dashed var(--primary); border-radius: 12px; cursor: pointer; font-weight: 800; color: var(--primary); margin-top: 15px;" onclick="copyIP()">IP: SHARKMC.US (Click para copiar)</div>
+        <div class="dashboard-header">
+            <img src="logo.png" alt="SharkMC Central">
+            <h2>PANEL DE CONTROL</h2>
+            <div class="hardware-info">
+                <span><i class="fas fa-microchip"></i> Ryzen 5 5600X</span>
+                <span><i class="fas fa-memory"></i> 128GB DDR4 RAM</span>
+                <span><i class="fas fa-hdd"></i> NVMe SSD RAID 1</span>
+            </div>
+            <div class="ip-box" onclick="copyIP()">IP: SHARKMC.US (Click para copiar)</div>
         </div>
 
-        <a href="https://sharkmcevo.tebex.io/" target="_blank" class="btn-tienda">IR A LA TIENDA OFICIAL</a>
+        <a href="https://sharkmcevo.tebex.io/" target="_blank" class="btn-tienda">
+            <i class="fas fa-shopping-cart"></i> ENTRAR A LA TIENDA DE SHARKMC
+        </a>
 
         <div class="collapsible-card" id="rate-sec">
             <div class="card-header" onclick="toggleSection('rate-content')">
-                <h3 style="font-weight: 800;"><i class="fas fa-star"></i> CALIFICAR EXPERIENCIA</h3>
+                <h3><i class="fas fa-star status-icon"></i> CALIFICAR NUESTRA WEB</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="rate-content" class="card-content">
-                <div style="text-align: center; padding-bottom: 20px;">
+                <div style="text-align: center;">
+                    <p style="color: var(--text-muted);">Tu opinión nos ayuda a mejorar la infraestructura</p>
                     <div class="stars">
                         <i class="fas fa-star" onclick="setRate(1)"></i>
                         <i class="fas fa-star" onclick="setRate(2)"></i>
@@ -118,73 +163,100 @@
                         <i class="fas fa-star" onclick="setRate(4)"></i>
                         <i class="fas fa-star" onclick="setRate(5)"></i>
                     </div>
-                    <textarea id="rate-comment" placeholder="¿Qué te pareció la página?"></textarea>
-                    <button class="btn-send" onclick="sendRating()">ENVIAR CALIFICACIÓN</button>
+                    <textarea id="rate-comment" placeholder="Escribe un comentario opcional..."></textarea>
+                    <button class="btn-send" onclick="sendRating()">Enviar Valoración</button>
                 </div>
             </div>
         </div>
 
         <div class="collapsible-card">
             <div class="card-header" onclick="toggleSection('loc-sec')">
-                <h3 style="font-weight: 800;"><i class="fas fa-globe"></i> UBICACIONES Y LATENCIA</h3>
+                <h3><i class="fas fa-network-wired status-icon"></i> RED Y DISPONIBILIDAD GLOBAL</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="loc-sec" class="card-content open">
-                <img src="mapa.png" style="width:100%; border-radius:10px; margin-bottom: 20px;">
+                <img src="mapa.png" style="width:100%; border-radius:12px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);">
                 <div class="loc-grid">
-                    <div class="loc-item"><span>🇺🇸 Buffalo, NY</span> <span class="ping">103ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇺🇸 Dallas, Texas</span> <span class="ping">92ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇺🇸 Los Angeles, CA</span> <span class="ping">138ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇩🇪 Alemania</span> <span class="ping">198ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇺🇸 Dallas, Texas</span> <span class="ping-val">92ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇺🇸 Buffalo, NY</span> <span class="ping-val">103ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇺🇸 Los Ángeles</span> <span class="ping-val">138ms <i class="fas fa-signal"></i></span></div>
+                    <div class="loc-item"><span>🇩🇪 Alemania</span> <span class="ping-val">198ms <i class="fas fa-signal"></i></span></div>
                 </div>
             </div>
         </div>
 
         <div class="collapsible-card" id="rules-sec">
             <div class="card-header" onclick="toggleSection('rules-content')">
-                <h3 style="font-weight: 800;"><i class="fas fa-gavel"></i> REGLAMENTO (13 REGLAS)</h3>
+                <h3><i class="fas fa-gavel status-icon"></i> REGLAMENTO OFICIAL DEL SERVIDOR</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="rules-content" class="card-content">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; padding-bottom: 20px;">
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">1. Respeto total.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">2. No Spam/Flood.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">3. No Estafas.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">4. No Doxxing.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">5. Responsabilidad cuenta.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">6. No ventas reales.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">7. No NSFW.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">8. Seguir anuncios.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">9. Reportar faltas.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">10. Uso canales voz.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">11. Caso al Staff.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">12. Vacíos legales Staff.</div>
-                    <div style="padding:8px; border-bottom: 1px solid #2d3748;">13. No suplantación.</div>
+                <div class="rules-grid">
+                    <div class="rule-card"><b>1.</b> Respeto y Cortesía total entre miembros.</div>
+                    <div class="rule-card"><b>2.</b> Prohibido realizar Spam o Flood en canales.</div>
+                    <div class="rule-card"><b>3.</b> Prohibidas las Estafas o engaños.</div>
+                    <div class="rule-card"><b>4.</b> Respeto a la Privacidad (Prohibido Doxxing).</div>
+                    <div class="rule-card"><b>5.</b> Tu cuenta es tu responsabilidad.</div>
+                    <div class="rule-card"><b>6.</b> No Ventas por Dinero Real externas.</div>
+                    <div class="rule-card"><b>7.</b> Prohibido Material NSFW o inadecuado.</div>
+                    <div class="rule-card"><b>8.</b> Atención obligatoria a los anuncios Staff.</div>
+                    <div class="rule-card"><b>9.</b> Reporta cualquier falta de inmediato.</div>
+                    <div class="rule-card"><b>10.</b> Uso correcto de Canales de Voz.</div>
+                    <div class="rule-card"><b>11.</b> Seguir siempre instrucciones del Staff.</div>
+                    <div class="rule-card"><b>12.</b> Vacíos legales quedan a criterio Staff.</div>
+                    <div class="rule-card"><b>13.</b> Prohibida la Suplantación de identidad.</div>
                 </div>
             </div>
         </div>
 
         <div class="collapsible-card">
             <div class="card-header" onclick="toggleSection('tk-content')">
-                <h3 style="font-weight: 800;"><i class="fas fa-ticket-alt"></i> SISTEMA DE TICKETS</h3>
+                <h3><i class="fas fa-ticket-alt status-icon"></i> CENTRO DE SOPORTE Y REPORTES</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="tk-content" class="card-content">
-                <input type="text" id="tk-user" placeholder="Tu usuario">
-                <textarea id="tk-msg" rows="4" placeholder="Describe tu problema..."></textarea>
-                <button class="btn-send" onclick="sendTicket()">ENVIAR TICKET</button>
+                <input type="text" id="tk-user" placeholder="Usuario de Minecraft o Discord">
+                <textarea id="tk-msg" rows="5" placeholder="Describe tu situación detalladamente para que el Staff pueda ayudarte..."></textarea>
+                <button class="btn-send" onclick="sendTicket()">Abrir Ticket de Soporte</button>
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>SHARKMC</h4>
+                <p>Infraestructura de alto rendimiento para la mejor experiencia en Minecraft.</p>
+                <div style="display: flex; gap: 15px; margin-top: 15px;">
+                    <i class="fab fa-twitter"></i> <i class="fab fa-instagram"></i> <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>SOPORTE</h4>
+                <a href="#">Términos de Servicio</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Estado del Nodo</a>
+            </div>
+            <div class="footer-col">
+                <h4>SERVICIOS</h4>
+                <a href="#">Alojamiento Minecraft</a>
+                <a href="#">Bots de Discord</a>
+                <a href="#">Web Hosting</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 SharkMC Network. Todos los derechos reservados. <br>
+            <small style="opacity: 0.5;">Powered by Ryzen 5 5600X Infrastructure</small>
+        </div>
+    </footer>
 
     <script>
         let currentRating = 0;
         const hook = "https://discord.com/api/webhooks/1458676177584525404/Nu7dALR24DEXui_rhF9HhgamZCmffbinVL7zpcoCgmEWQvOYLiOiRKt2lIF4MJzcEKkY";
 
         function start() { document.getElementById('welcome-screen').style.transform = 'translateY(-100%)'; }
-        function toggleMenu() { document.getElementById('side-menu').classList.toggle('active'); }
         function toggleSection(id) { document.getElementById(id).classList.toggle('open'); }
-        function copyIP() { navigator.clipboard.writeText("sharkmc.us"); alert("¡IP Copiada!"); }
+        function copyIP() { navigator.clipboard.writeText("sharkmc.us"); alert("¡IP SHARKMC.US copiada al portapapeles!"); }
 
         function setRate(n) {
             currentRating = n;
@@ -192,22 +264,39 @@
         }
 
         async function sendRating() {
-            if(currentRating === 0) return alert("Por favor selecciona una estrella.");
-            const msg = document.getElementById('rate-comment').value;
-            const data = { embeds: [{ title: "⭐ NUEVA CALIFICACIÓN", fields: [{name:"Puntos", value:"⭐".repeat(currentRating)}, {name:"Comentario", value: msg || "Sin comentario"}] }] };
+            if(currentRating === 0) return alert("Por favor, selecciona al menos una estrella.");
+            const comment = document.getElementById('rate-comment').value || "Sin comentarios adicionales";
+            const data = { embeds: [{ 
+                title: "⭐ NUEVA CALIFICACIÓN WEB", 
+                color: 15844367,
+                fields: [
+                    {name: "Puntuación", value: "⭐".repeat(currentRating), inline: true},
+                    {name: "Comentario", value: comment}
+                ],
+                footer: { text: "SharkMC Dashboard Feedback" }
+            }]};
             await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-            alert("¡Gracias por calificar la página! Nuestro equipo se pondrá en contacto contigo muy pronto.");
+            alert("¡Gracias por calificar nuestra página! Se pondrán en contacto contigo pronto.");
             toggleSection('rate-content');
         }
 
         async function sendTicket() {
             const user = document.getElementById('tk-user').value;
             const msg = document.getElementById('tk-msg').value;
-            if(!user || !msg) return alert("Completa los campos.");
-            const data = { embeds: [{ title: "📩 NUEVO TICKET", fields: [{name:"Usuario", value:user}, {name:"Mensaje", value:msg}] }] };
+            if(!user || !msg) return alert("Por favor completa todos los campos.");
+            const data = { embeds: [{ 
+                title: "📩 NUEVO TICKET RECIBIDO", 
+                color: 3447003,
+                fields: [
+                    {name: "Remitente", value: user, inline: true},
+                    {name: "Mensaje", value: msg}
+                ],
+                timestamp: new Date()
+            }]};
             await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-            alert("¡Gracias por crear un ticket! El staff se pondrá en contacto contigo a la brevedad.");
+            alert("¡Gracias por reportar o crear tu ticket! Nuestro equipo se pondrá en contacto contigo muy pronto.");
             document.getElementById('tk-msg').value = "";
+            document.getElementById('tk-user').value = "";
         }
     </script>
 </body>
