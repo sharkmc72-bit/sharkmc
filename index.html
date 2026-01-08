@@ -7,29 +7,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00d2ff; --bg: #06090f; --card: #111a28; --green: #2ecc71; }
+        :root { --primary: #00d2ff; --bg: #06090f; --card: #111a28; --green: #2ecc71; --gold: #f1c40f; }
         
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* --- PANTALLA DE ENTRADA (BIENVENIDA) --- */
+        /* --- BIENVENIDA --- */
         #welcome-screen {
             position: fixed; width: 100%; height: 100vh; background: var(--bg);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 3000; transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
         }
         .btn-enter { background: var(--primary); color: black; padding: 15px 40px; border: none; border-radius: 50px; font-weight: 800; cursor: pointer; margin-top: 25px; text-transform: uppercase; transition: 0.3s; }
-        .btn-enter:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--primary); }
 
-        /* --- MENÚ LATERAL INTERACTIVO --- */
+        /* --- MENÚ LATERAL --- */
         #side-menu {
             position: fixed; left: -320px; top: 0; width: 300px; height: 100%;
             background: var(--card); z-index: 2500; transition: 0.4s;
             padding: 40px 20px; border-right: 2px solid var(--primary);
         }
         #side-menu.active { left: 0; }
-        .menu-link { display: block; color: white; text-decoration: none; padding: 15px; font-weight: 600; border-radius: 10px; margin-bottom: 10px; transition: 0.3s; }
-        .menu-link:hover { background: var(--primary); color: black; }
+        .menu-link { display: block; color: white; text-decoration: none; padding: 15px; font-weight: 600; border-radius: 10px; margin-bottom: 10px; }
 
         /* --- NAVEGACIÓN --- */
         nav { 
@@ -41,36 +39,23 @@
 
         .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
 
-        /* SECCIONES DESPLEGABLES (ACORDEÓN) */
+        /* SECCIONES DESPLEGABLES */
         .collapsible-card { background: var(--card); border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
-        .card-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); transition: 0.3s; }
-        .card-header:hover { background: rgba(255,255,255,0.05); }
+        .card-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); }
         .card-content { max-height: 0; overflow: hidden; transition: 0.5s ease-out; padding: 0 20px; }
         .card-content.open { max-height: 2000px; padding: 20px; }
 
-        /* BOTÓN TIENDA (Manual, no automático) */
-        .btn-tienda {
-            display: block; width: 100%; max-width: 500px; margin: 30px auto;
-            background: linear-gradient(45deg, #f1c40f, #e67e22); color: black; text-align: center;
-            padding: 22px; border-radius: 15px; text-decoration: none;
-            font-weight: 900; font-size: 1.3rem; transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.2);
-        }
-        .btn-tienda:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(241, 196, 15, 0.4); }
+        /* CALIFICACIÓN */
+        .stars { display: flex; justify-content: center; gap: 15px; margin: 20px 0; font-size: 2rem; }
+        .fa-star { cursor: pointer; color: #2d3748; transition: 0.3s; }
+        .fa-star.active { color: var(--gold); text-shadow: 0 0 15px var(--gold); }
 
-        /* UBICACIÓN Y LATENCIAS */
-        .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .loc-item { background: #0d141f; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; border: 1px solid rgba(255,255,255,0.05); }
-        .ping { color: var(--green); font-weight: 800; }
+        /* BOTONES Y INPUTS */
+        .btn-tienda { display: block; width: 100%; max-width: 400px; margin: 30px auto; background: var(--gold); color: black; text-align: center; padding: 20px; border-radius: 15px; text-decoration: none; font-weight: 900; }
+        input, select, textarea { width: 100%; padding: 15px; background: #06090f; border: 1px solid #2d3748; color: white; border-radius: 10px; margin-top: 10px; }
+        .btn-send { width: 100%; padding: 18px; background: var(--primary); border: none; border-radius: 10px; font-weight: 900; margin-top: 15px; cursor: pointer; }
 
-        /* TICKETS FORM */
-        input, select, textarea { width: 100%; padding: 15px; background: #06090f; border: 1px solid #2d3748; color: white; border-radius: 10px; margin-top: 10px; font-family: inherit; }
-        .btn-send { width: 100%; padding: 18px; background: var(--primary); border: none; border-radius: 10px; font-weight: 900; margin-top: 15px; cursor: pointer; transition: 0.3s; }
-        .btn-send:hover { filter: brightness(1.2); }
-
-        /* WHATSAPP FLOTANTE */
-        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 2000; text-decoration: none; box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: 0.3s; }
-        .wa-float:hover { transform: scale(1.1) rotate(10deg); }
+        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; z-index: 2000; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -78,152 +63,128 @@
     <a href="https://wa.me/593987749885" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <div id="welcome-screen">
-        <div style="color: var(--primary); font-weight: 800; letter-spacing: 3px; font-size: 0.9rem;">NETWORK STATUS</div>
-        <h1 style="font-size: clamp(2rem, 6vw, 4rem); font-weight: 900; text-align: center; margin: 15px 0;">Bienvenido al estado de <span style="color: var(--primary);">SharkMC</span></h1>
-        <div style="display: flex; align-items: center; gap: 10px; background: rgba(46, 204, 113, 0.1); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--green);">
-            <div style="width:12px; height:12px; background:var(--green); border-radius:50%; box-shadow: 0 0 15px var(--green);"></div> 
-            <span style="font-weight: 600; letter-spacing: 1px;">SERVIDOR ONLINE 2026</span>
-        </div>
-        <button class="btn-enter" onclick="start()">Entrar al Panel Pro</button>
+        <img src="logo.png" style="width: 120px; margin-bottom: 20px;">
+        <h1 style="text-align: center;">Bienvenido al estado de <span style="color: var(--primary);">SharkMC</span></h1>
+        <button class="btn-enter" onclick="start()">Entrar al Panel</button>
     </div>
 
     <div id="side-menu">
-        <div style="text-align: right;"><i class="fas fa-times" onclick="toggleMenu()" style="cursor:pointer; font-size: 1.8rem; color: var(--primary);"></i></div>
-        <img src="logo.png" style="width: 120px; display: block; margin: 30px auto; filter: drop-shadow(0 0 10px var(--primary));">
-        <a href="#" class="menu-link" onclick="toggleMenu()"><i class="fas fa-home"></i> Inicio</a>
-        <a href="#tickets-sec" class="menu-link" onclick="toggleMenu()"><i class="fas fa-ticket-alt"></i> Soporte</a>
-        <a href="#rules-sec" class="menu-link" onclick="toggleMenu()"><i class="fas fa-gavel"></i> Reglamento</a>
-        <a href="https://sharkmcevo.tebex.io/" class="menu-link" target="_blank" style="background: #f1c40f; color: black; margin-top: 20px;"><i class="fas fa-shopping-cart"></i> TIENDA OFICIAL</a>
+        <div style="text-align: right;"><i class="fas fa-times" onclick="toggleMenu()" style="cursor:pointer; font-size: 1.5rem;"></i></div>
+        <img src="logo.png" style="width: 100px; display: block; margin: 20px auto;">
+        <a href="#" class="menu-link" onclick="toggleMenu()">Inicio</a>
+        <a href="#rules-sec" class="menu-link" onclick="toggleMenu()">Reglamento</a>
+        <a href="#rating-sec" class="menu-link" onclick="toggleMenu()">Calificar</a>
+        <a href="https://sharkmcevo.tebex.io/" class="menu-link" target="_blank" style="background: var(--gold); color: black;">TIENDA</a>
     </div>
 
     <nav>
-        <div style="font-weight: 900; font-size: 1.6rem; letter-spacing: -1px;">SHARK<span style="color: var(--primary);">MC</span></div>
-        <div onclick="toggleMenu()" style="cursor:pointer; color: var(--primary); font-size: 1.8rem;"><i class="fas fa-bars"></i></div>
+        <div style="font-weight: 900; font-size: 1.4rem;">SHARKMC</div>
+        <div onclick="toggleMenu()" style="cursor:pointer; color: var(--primary); font-size: 1.5rem;"><i class="fas fa-bars"></i></div>
     </nav>
 
     <div class="container">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <img src="logo.png" style="width: 180px; filter: drop-shadow(0 0 20px var(--primary)); margin-bottom: 10px;">
-            <h2 style="font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; margin: 0;">PANEL DE CONTROL</h2>
-            <p style="color: #718096; font-weight: 600;">Miami, USA Infrastructure | CPU: Ryzen 5 5600X</p>
-            <div style="display:inline-block; padding: 15px 40px; border: 2px dashed var(--primary); border-radius: 12px; cursor: pointer; font-weight: 900; color: var(--primary); margin-top: 20px;" onclick="copyIP()">
-                IP: SHARKMC.US <i class="fas fa-copy" style="margin-left: 10px;"></i>
-            </div>
+        <div style="text-align: center; margin-bottom: 40px;">
+            <img src="logo.png" style="width: 180px; filter: drop-shadow(0 0 20px var(--primary));">
+            <h2 style="font-size: 2.5rem; margin: 10px 0;">PANEL DE CONTROL</h2>
+            <p style="color: #718096;">Miami, USA | Ryzen 5 5600X</p>
+            <div style="display:inline-block; padding: 10px 30px; border: 2px dashed var(--primary); border-radius: 10px; cursor: pointer; font-weight: 800;" onclick="copyIP()">IP: SHARKMC.US</div>
         </div>
 
         <a href="https://sharkmcevo.tebex.io/" target="_blank" class="btn-tienda">
-            <i class="fas fa-shopping-bag"></i> IR A LA TIENDA DE SHARKMC
+            <i class="fas fa-shopping-cart"></i> ENTRAR A LA TIENDA OFICIAL
         </a>
+
+        <div class="collapsible-card" id="rating-sec">
+            <div class="card-header" onclick="toggleSection('rate-content')">
+                <h3><i class="fas fa-star"></i> CALIFICAR NUESTRA WEB</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="rate-content" class="card-content">
+                <p style="text-align:center; color: #a0aec0;">¿Qué te parece la experiencia en SharkMC?</p>
+                <div class="stars">
+                    <i class="fas fa-star" onclick="setRate(1)"></i>
+                    <i class="fas fa-star" onclick="setRate(2)"></i>
+                    <i class="fas fa-star" onclick="setRate(3)"></i>
+                    <i class="fas fa-star" onclick="setRate(4)"></i>
+                    <i class="fas fa-star" onclick="setRate(5)"></i>
+                </div>
+                <textarea id="rate-comment" placeholder="Opcional: Déjanos un comentario..."></textarea>
+                <button class="btn-send" onclick="sendRating()">ENVIAR CALIFICACIÓN</button>
+            </div>
+        </div>
 
         <div class="collapsible-card">
             <div class="card-header" onclick="toggleSection('loc-sec')">
-                <h3 style="font-weight: 800;"><i class="fas fa-globe-americas"></i> UBICACIÓN GLOBAL Y LATENCIA</h3>
+                <h3><i class="fas fa-globe"></i> UBICACIÓN Y LATENCIA</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="loc-sec" class="card-content open">
-                <img src="mapa.png" style="width:100%; border-radius:12px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                <div class="loc-grid">
-                    <div class="loc-item"><span>🇺🇸 Miami, Florida</span> <span class="ping">12ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇺🇸 Buffalo, NY</span> <span class="ping">35ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇺🇸 Dallas, Texas</span> <span class="ping">28ms <i class="fas fa-signal"></i></span></div>
-                    <div class="loc-item"><span>🇩🇪 Alemania</span> <span class="ping">105ms <i class="fas fa-signal"></i></span></div>
+                <img src="mapa.png" style="width:100%; border-radius:10px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                    <div style="background:#0d141f; padding:15px; border-radius:8px; display:flex; justify-content:space-between;"><span>🇺🇸 Miami</span> <span style="color:var(--green)">12ms</span></div>
+                    <div style="background:#0d141f; padding:15px; border-radius:8px; display:flex; justify-content:space-between;"><span>🇩🇪 Alemania</span> <span style="color:var(--green)">105ms</span></div>
                 </div>
             </div>
         </div>
 
         <div class="collapsible-card" id="rules-sec">
             <div class="card-header" onclick="toggleSection('rules-content')">
-                <h3 style="font-weight: 800;"><i class="fas fa-balance-scale"></i> REGLAMENTO OFICIAL (13 LEYES)</h3>
+                <h3><i class="fas fa-gavel"></i> REGLAS (13)</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="rules-content" class="card-content">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding-bottom: 20px;">
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>1.</b> Respeto y Cortesía total.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>2.</b> Prohibido Spam/Flood.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>3.</b> No se permiten Estafas.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>4.</b> Respeto a la Privacidad (No Dox).</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>5.</b> Responsabilidad de Cuenta personal.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>6.</b> Prohibidas Ventas Externas.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>7.</b> No Material Inapropiado (NSFW).</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>8.</b> Escucha Activa a Anuncios.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>9.</b> Reporta Incumplimientos.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>10.</b> Uso correcto de Canales de Voz.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>11.</b> Sigue Instrucciones del Staff.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>12.</b> Vacíos Legales a criterio Staff.</div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;"><b>13.</b> Prohibida la Suplantación.</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;">
+                    <div style="padding:10px; border-bottom:1px solid #2d3748;">1. Respeto total.</div>
+                    <div style="padding:10px; border-bottom:1px solid #2d3748;">2. Prohibido Spam.</div>
+                    <div style="padding:10px; border-bottom:1px solid #2d3748;">13. No suplantación.</div>
                 </div>
             </div>
         </div>
 
-        <div class="collapsible-card" id="tickets-sec">
-            <div class="card-header" onclick="toggleSection('ticket-form')">
-                <h3 style="font-weight: 800;"><i class="fas fa-envelope-open-text"></i> CREAR TICKET AL STAFF</h3>
+        <div class="collapsible-card">
+            <div class="card-header" onclick="toggleSection('tk-content')">
+                <h3><i class="fas fa-ticket-alt"></i> SOPORTE TICKET</h3>
                 <i class="fas fa-chevron-down"></i>
             </div>
-            <div id="ticket-form" class="card-content">
-                <div style="max-width: 700px; margin: auto; padding-bottom: 20px;">
-                    <label style="font-weight: 600; font-size: 0.8rem; color: var(--primary);">TU IDENTIDAD (DISCORD O MC)</label>
-                    <input type="text" id="tk-user" placeholder="Ej: SharkPlayer#0001">
-                    
-                    <label style="font-weight: 600; font-size: 0.8rem; color: var(--primary); margin-top: 15px; display: block;">MOTIVO DEL CONTACTO</label>
-                    <select id="tk-cat">
-                        <option value="REPORTE">Reportar Jugador</option>
-                        <option value="BUG">Informar un Bug</option>
-                        <option value="TIENDA">Soporte de Tienda</option>
-                        <option value="APELACION">Apelar Sanción</option>
-                    </select>
-                    
-                    <label style="font-weight: 600; font-size: 0.8rem; color: var(--primary); margin-top: 15px; display: block;">MENSAJE DETALLADO</label>
-                    <textarea id="tk-msg" rows="5" placeholder="Escribe aquí toda la información..."></textarea>
-                    
-                    <button class="btn-send" onclick="sendTicket()">ENVIAR TICKET A DISCORD</button>
-                </div>
+            <div id="tk-content" class="card-content">
+                <input type="text" id="tk-user" placeholder="Usuario">
+                <textarea id="tk-msg" placeholder="Mensaje"></textarea>
+                <button class="btn-send" onclick="sendTicket()">ENVIAR TICKET</button>
             </div>
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 50px; color: #4a5568; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
-        SHARKMC NETWORK &copy; 2026 | INFRAESTRUCTURA MIAMI PREMIUM
-    </footer>
-
     <script>
+        let currentRating = 0;
+        const webhook = "https://discord.com/api/webhooks/1458676177584525404/Nu7dALR24DEXui_rhF9HhgamZCmffbinVL7zpcoCgmEWQvOYLiOiRKt2lIF4MJzcEKkY";
+
         function start() { document.getElementById('welcome-screen').style.transform = 'translateY(-100%)'; }
         function toggleMenu() { document.getElementById('side-menu').classList.toggle('active'); }
         function toggleSection(id) { document.getElementById(id).classList.toggle('open'); }
-        function copyIP() { navigator.clipboard.writeText("sharkmc.us"); alert("¡IP SHARKMC.US copiada con éxito!"); }
+        function copyIP() { navigator.clipboard.writeText("sharkmc.us"); alert("IP Copiada"); }
+
+        function setRate(n) {
+            currentRating = n;
+            document.querySelectorAll('.fa-star').forEach((s, i) => {
+                s.classList.toggle('active', i < n);
+            });
+        }
+
+        async function sendRating() {
+            if(currentRating === 0) return alert("Selecciona una estrella.");
+            const comment = document.getElementById('rate-comment').value;
+            const data = { embeds: [{ title: "⭐ NUEVA CALIFICACIÓN", color: 15844367, fields: [{name:"Estrellas", value:"⭐".repeat(currentRating)}, {name:"Comentario", value: comment || "Sin comentarios"}] }] };
+            await fetch(webhook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+            alert("¡Gracias por tu calificación!");
+            toggleSection('rate-content');
+        }
 
         async function sendTicket() {
-            const hook = "https://discord.com/api/webhooks/1458676177584525404/Nu7dALR24DEXui_rhF9HhgamZCmffbinVL7zpcoCgmEWQvOYLiOiRKt2lIF4MJzcEKkY";
             const user = document.getElementById('tk-user').value;
-            const cat = document.getElementById('tk-cat').value;
             const msg = document.getElementById('tk-msg').value;
-
-            if(!user || !msg) return alert("Por favor, completa los campos de usuario y mensaje.");
-
-            const data = {
-                username: "SharkMC Dashboard Bot",
-                embeds: [{
-                    title: "🔔 NUEVO TICKET RECIBIDO",
-                    color: 3447003,
-                    fields: [
-                        { name: "👤 Usuario", value: user, inline: true },
-                        { name: "📁 Categoría", value: cat, inline: true },
-                        { name: "📝 Detalles", value: msg }
-                    ],
-                    footer: { text: "SharkMC 2026 Web Support" },
-                    timestamp: new Date()
-                }]
-            };
-
-            try {
-                const response = await fetch(hook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-                if(response.ok) {
-                    alert("¡Ticket enviado! El Staff te responderá pronto.");
-                    document.getElementById('tk-msg').value = "";
-                }
-            } catch(e) {
-                alert("Error al conectar con el servidor de Discord.");
-            }
+            const data = { embeds: [{ title: "📩 NUEVO TICKET", color: 3447003, fields: [{name:"User", value:user}, {name:"Msj", value:msg}] }] };
+            await fetch(webhook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+            alert("Ticket enviado");
         }
     </script>
 </body>
