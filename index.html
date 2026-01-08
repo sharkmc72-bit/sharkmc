@@ -3,318 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SharkMC Network | Sitio Oficial</title>
+    <title>SharkMC Network | Dashboard Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00d2ff;
             --secondary: #004e92;
-            --bg-dark: #0a0f1a;
-            --nav-bg: #111a28;
-            --accent-green: #2ecc71;
-            --text-gray: #a0aec0;
+            --accent: #2ecc71;
+            --dark-bg: #06090f;
+            --card-bg: #101621;
+            --text-muted: #8492a6;
         }
 
+        * { box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
             color: white;
             margin: 0;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* Navbar Estilo EMH */
+        /* --- Barra de Navegación --- */
         nav {
-            background: var(--nav-bg);
-            padding: 15px 50px;
+            background: rgba(16, 22, 33, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover { color: var(--primary); }
-
-        .btn-comenzar {
-            background: var(--accent-green);
-            color: black !important;
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-weight: 800;
-            text-decoration: none;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 100px 20px;
-            text-align: center;
-            background: radial-gradient(circle at top, rgba(0,210,255,0.1), transparent);
-        }
-
-        .logo-hero {
-            max-width: 250px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px var(--primary));
-        }
-
-        .hero h1 { font-size: 3.5rem; margin: 0; font-weight: 800; }
-        .hero p { color: var(--text-gray); font-size: 1.2rem; max-width: 700px; margin: 20px auto; }
-
-        /* Grid de Info */
-        .grid-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .card {
-            background: var(--nav-bg);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
-        }
-
-        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
-
-        /* Reglas Acordeón */
-        .accordion {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #162133;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .acc-header {
-            padding: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .acc-content {
-            max-height: 0;
-            overflow: hidden;
-            padding: 0 20px;
-            background: #0d1521;
-            color: var(--text-gray);
-            transition: 0.3s ease-out;
-        }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-nav-ticket { background: var(--accent); color: #000 !important; padding: 8px 18px; border-radius: 6px; }
 
-        /* Formulario Tickets */
-        .ticket-section {
-            background: rgba(0,0,0,0.3);
-            padding: 80px 20px;
+        /* --- Hero / Estado del Servidor --- */
+        .hero {
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.08) 0%, transparent 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding: 0 20px;
         }
 
-        .form-container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: var(--nav-bg);
-            padding: 40px;
+        .status-container {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid var(--accent);
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0; font-weight: 800; line-height: 1.1; }
+        .hero p { color: var(--text-muted); max-width: 700px; font-size: 1.1rem; margin: 20px 0 40px; }
+
+        .ip-copy {
+            background: var(--card-bg);
+            border: 2px dashed var(--primary);
+            padding: 15px 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            position: relative;
+        }
+        .ip-copy:hover { background: var(--primary); color: #000; border-style: solid; }
+
+        /* --- Grid de Navegación Rápida --- */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 80%;
+            margin-top: 60px;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            padding: 30px;
             border-radius: 15px;
-            text-align: left;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: white;
         }
+        .menu-card:hover { transform: translateY(-15px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,210,255,0.1); }
+        .menu-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; display: block; }
 
-        input, textarea {
+        /* --- Secciones de Contenido --- */
+        .section-container { padding: 100px 8%; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
+
+        /* Acordeón de Reglas */
+        .rules-wrapper { max-width: 900px; margin: auto; }
+        .rule-box { background: var(--card-bg); margin-bottom: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .rule-btn { width: 100%; padding: 20px; text-align: left; background: none; border: none; color: white; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .rule-content { max-height: 0; overflow: hidden; transition: 0.4s ease-out; background: rgba(0,0,0,0.2); }
+        .rule-content p { padding: 20px; margin: 0; color: var(--text-muted); }
+
+        /* Panel de Tickets */
+        .ticket-panel {
+            background: var(--card-bg);
+            max-width: 700px;
+            margin: auto;
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 40px rgba(0,210,255,0.05);
+        }
+        .input-group { margin-bottom: 25px; }
+        .input-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--primary); font-size: 0.9rem; }
+        .input-group input, .input-group select, .input-group textarea {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            background: #1a263a;
+            padding: 15px;
+            background: #090e17;
             border: 1px solid rgba(255,255,255,0.1);
             color: white;
             border-radius: 8px;
-            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
         }
-
-        .btn-enviar {
+        .input-group input:focus { border-color: var(--primary); }
+        .btn-submit {
             background: var(--primary);
-            color: black;
-            border: none;
-            padding: 15px;
+            color: #000;
             width: 100%;
-            font-weight: 800;
+            padding: 18px;
+            border: none;
             border-radius: 8px;
+            font-weight: 800;
+            font-size: 1rem;
             cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
         }
+        .btn-submit:hover { filter: brightness(1.2); transform: scale(1.02); }
 
-        /* WhatsApp Float */
-        .wa-float {
+        /* Botón WhatsApp */
+        .whatsapp-float {
             position: fixed;
             bottom: 30px;
             right: 30px;
             background: #25d366;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 30px;
-            color: white;
-            z-index: 100;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: 0.3s;
         }
+        .whatsapp-float:hover { transform: rotate(360deg) scale(1.1); }
 
+        footer { text-align: center; padding: 60px; background: #04060a; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
 
-    <a href="https://wa.me/593987749885" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/593987749885" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <nav>
-        <div style="display: flex; align-items: center;">
-            <img src="logo.png" alt="SharkMC" style="height: 45px; margin-right: 15px;">
-            <span style="font-weight: 800; font-size: 1.3rem; letter-spacing: 1px;">SHARKMC</span>
+        <div class="nav-brand">
+            <img src="logo.png" height="40" alt="L"> SHARKMC NETWORK
         </div>
         <div class="nav-links">
-            <a href="#info">Información</a>
-            <a href="#reglas">Reglas</a>
-            <a href="https://sharkmcevo.tebex.io/">Tienda</a>
-            <a href="#tickets" class="btn-comenzar">ABRIR TICKET</a>
+            <a href="#inicio">INICIO</a>
+            <a href="#reglas">REGLAS</a>
+            <a href="https://sharkmcevo.tebex.io/" target="_blank">TIENDA</a>
+            <a href="#tickets" class="btn-nav-ticket">SOPORTE WEB</a>
         </div>
     </nav>
 
-    <header class="hero">
-        <img src="logo.png" class="logo-hero">
-        <p style="color: var(--accent-green); font-weight: bold; letter-spacing: 2px;">ONLINE 24/7 • MIAMI USA</p>
-        <h1>SharkMC Network<br><span style="color: var(--primary);">Simple, Estable, Potente</span></h1>
-        <p>Alojamiento de alta calidad con latencia mínima para toda Latinoamérica. Únete a la comunidad más grande de Bedrock.</p>
-        <div style="margin-top: 30px;">
-            <button onclick="copyIP()" class="btn-comenzar" style="padding: 18px 50px; cursor: pointer; font-size: 1.1rem;">IP: SHARKMC.US</button>
+    <section class="hero" id="inicio">
+        <div class="status-container">
+            <i class="fas fa-signal"></i> ESTADO DE SHARKMC: ONLINE
         </div>
-    </header>
-
-    <section id="info" class="grid-info">
-        <div class="card">
-            <i class="fas fa-server" style="color: var(--primary); font-size: 2.5rem; margin-bottom: 15px;"></i>
-            <h3>Hardware Estándar</h3>
-            <p>AMD Ryzen 5 5600X, RAM DDR4 2666 MHz, NVMe SSD RAID 1.</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-microchip" style="color: var(--accent-green); font-size: 2.5rem; margin-bottom: 15px;"></i>
-            <h3>Optimización</h3>
-            <p>Configuración instantánea y rendimiento fluido sin tirones.</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-headset" style="color: var(--primary); font-size: 2.5rem; margin-bottom: 15px;"></i>
-            <h3>Soporte 24/7</h3>
-            <p>Asistencia técnica constante vía web y Discord.</p>
-        </div>
-    </section>
-
-    <section style="text-align: center; padding: 60px 20px;">
-        <h2 style="font-size: 2.5rem;">NUESTRA RED GLOBAL</h2>
-        <p style="color: var(--text-gray); margin-bottom: 40px;">Ubicación estratégica en Miami para el mejor ping de la región.</p>
-        <img src="mapa.png" alt="Mapa" style="max-width: 900px; width: 100%; border-radius: 20px; box-shadow: 0 0 50px rgba(0,210,255,0.2);">
-    </section>
-
-    <section id="reglas" style="padding: 80px 20px; background: #050810;">
-        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 40px;">REGLAMENTO DEL SERVIDOR</h2>
+        <h1>BIENVENIDO AL <br><span style="color: var(--primary)">DASHBOARD OFICIAL</span></h1>
+        <p>Monitorea el estado de la red, abre reportes directos al Staff y accede a toda la información técnica de nuestro servidor alojado en Miami, USA.</p>
         
-        <div class="accordion">
-            <div class="acc-header" onclick="toggleAcc(this)">1. Respeto y Cortesía <i class="fas fa-plus"></i></div>
-            <div class="acc-content"><p>No se permite comportamiento agresivo o tóxico. El acoso y la violencia están prohibidos.</p></div>
+        <div class="ip-copy" onclick="copyIP()">
+            <i class="fas fa-copy" style="margin-right: 10px"></i> IP: SHARKMC.US
         </div>
-        <div class="accordion">
-            <div class="acc-header" onclick="toggleAcc(this)">2. Spam y Flood <i class="fas fa-plus"></i></div>
-            <div class="acc-content"><p>Prohibido el spam por chat o mensajes directos, así como promocionar otros servidores.</p></div>
-        </div>
-        <div class="accordion">
-            <div class="acc-header" onclick="toggleAcc(this)">3. Estafas <i class="fas fa-plus"></i></div>
-            <div class="acc-content"><p>No se permiten estafas de ningún tipo ni links externos ajenos a SharkMC.</p></div>
-        </div>
-        <div class="accordion">
-            <div class="acc-header" onclick="toggleAcc(this)">4. Privacidad (Doxeo) <i class="fas fa-plus"></i></div>
-            <div class="acc-content"><p>Prohibida la filtración de información privada (IPs, fotos, teléfonos).</p></div>
-        </div>
-        </section>
 
-    <section id="tickets" class="ticket-section">
-        <h2>CENTRO DE SOPORTE</h2>
-        <p>Rellena los datos para abrir un ticket. Tu mensaje llegará directamente a nuestro staff en Discord.</p>
-        
-        <div class="form-container">
-            <label>Usuario (Discord o MC)</label>
-            <input type="text" id="username" placeholder="Ej: SharkPlayer#0001">
-            <label>Asunto</label>
-            <input type="text" id="subject" placeholder="Ej: Problema con compra">
-            <label>Descripción del Problema</label>
-            <textarea id="message" rows="5" placeholder="Escribe aquí los detalles..."></textarea>
-            <button onclick="sendTicket()" class="btn-enviar">ENVIAR TICKET AL STAFF</button>
+        <div class="grid-menu">
+            <a href="#tickets" class="menu-card">
+                <i class="fas fa-headset"></i>
+                <h3>Sistema de Soporte</h3>
+                <p>Crea un ticket automático que llegará al Discord del Staff.</p>
+            </a>
+            <a href="#reglas" class="menu-card">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Reglamento</h3>
+                <p>Consulta las 13 leyes fundamentales para jugar en SharkMC.</p>
+            </a>
+            <a href="https://sharkmcevo.tebex.io/" class="menu-card">
+                <i class="fas fa-shopping-bag"></i>
+                <h3>Tienda Virtual</h3>
+                <p>Adquiere rangos, llaves y cosméticos exclusivos.</p>
+            </a>
         </div>
-        <a href="https://discord.gg/HYaujEyCgn" target="_blank" style="color: var(--primary); text-decoration: none; display: block; margin-top: 20px;">
-            <i class="fab fa-discord"></i> O únete a nuestro Discord oficial
-        </a>
     </section>
 
-    <footer style="padding: 60px; text-align: center; background: #050810; border-top: 1px solid rgba(255,255,255,0.05);">
-        <img src="logo.png" style="height: 60px; margin-bottom: 20px;">
-        <p>&copy; 2026 SharkMC Network. Todos los derechos reservados.</p>
+    <section class="section-container" id="reglas">
+        <h2 class="section-title">NORMATIVA SHARKMC 2026</h2>
+        <div class="rules-wrapper" id="rules-list">
+            </div>
+    </section>
+
+    <section class="section-container" style="background: rgba(0,0,0,0.2)" id="tickets">
+        <h2 class="section-title">CENTRO DE REPORTES WEB</h2>
+        <div class="ticket-panel">
+            <div class="input-group">
+                <label>IDENTIFICACIÓN (DISCORD O MINECRAFT)</label>
+                <input type="text" id="tk_user" placeholder="Ej: SharkPlayer#1234">
+            </div>
+            <div class="input-group">
+                <label>CATEGORÍA DEL REPORTE</label>
+                <select id="tk_category">
+                    <option value="🚫 REPORTE DE USUARIO">REPORTAR UN JUGADOR</option>
+                    <option value="🩸 REPORTE DE BUGS">INFORMAR UN ERROR / BUG</option>
+                    <option value="💸 SOPORTE DE TIENDA">PROBLEMA CON COMPRA</option>
+                    <option value="🙏 APELACIÓN DE BAN">APELACIÓN DE SANCIÓN</option>
+                    <option value="🔥 REPORTE DE STAFF">QUEJA SOBRE UN STAFF</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>DESCRIPCIÓN DETALLADA</label>
+                <textarea id="tk_msg" rows="6" placeholder="Explica tu caso detalladamente aquí..."></textarea>
+            </div>
+            <button class="btn-submit" onclick="sendTicket()">Generar Ticket Automático</button>
+        </div>
+    </section>
+
+    <section style="text-align: center; padding: 100px 20px;">
+        <h2>MAPA DE LATENCIA GLOBAL</h2>
+        <img src="mapa.png" style="max-width: 900px; width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+    </section>
+
+    <footer>
+        <img src="logo.png" height="50" style="margin-bottom: 20px; filter: grayscale(1);"><br>
+        SHARKMC NETWORK &copy; 2026. Todos los derechos reservados.<br>
+        <span style="color: var(--primary)">MIAMI, USA • LATAM INFRASTRUCTURE</span>
     </footer>
 
     <script>
-        function toggleAcc(header) {
-            const content = header.nextElementSibling;
-            const icon = header.querySelector('i');
+        // Sistema de Carga de Reglas
+        const normativa = [
+            {t: "1. Comportamiento y Respeto", c: "Prohibido cualquier tipo de toxicidad, insultos o acoso. Queremos una comunidad sana."},
+            {t: "2. Spam y Publicidad", c: "No se permite el flood ni promocionar otros servidores de Minecraft o Discord."},
+            {t: "3. Estafas y Robos", c: "Cualquier estafa a jugadores o robo de cuentas resultará en ban permanente."},
+            {t: "4. Protección de Datos", c: "Prohibido el doxeo o filtrar fotos/teléfonos de otros sin consentimiento."},
+            {t: "5. Uso de Hacks", c: "El uso de cualquier cliente modificado que de ventaja injusta está prohibido."},
+            {t: "6. Ventas Externas", c: "No se permite vender items por dinero real. Solo usa la tienda oficial."},
+            {t: "7. Contenido NSFW", c: "Prohibido compartir material para adultos o gore en cualquier canal."},
+            {t: "8. Canales de Soporte", c: "Usa los tickets correctamente. El mal uso de reportes conlleva sanción."},
+            {t: "9. Suplantación", c: "No te hagas pasar por Staff o YouTubers famosos."},
+            {t: "10. Construcciones", c: "No realices construcciones obscenas o que generen lag intencional."},
+            {t: "11. Multicuentas", c: "No uses cuentas secundarias para evadir sanciones."},
+            {t: "12. Aprovechamiento de Bugs", c: "Si encuentras un error, infórmalo. Explotarlo es motivo de ban."},
+            {t: "13. Decisión del Staff", c: "Los Administradores tienen la palabra final en casos no especificados."}
+        ];
+
+        const list = document.getElementById('rules-list');
+        normativa.forEach((r, i) => {
+            list.innerHTML += `
+                <div class="rule-box">
+                    <button class="rule-btn" onclick="toggleRule(${i})">
+                        ${r.t} <i class="fas fa-chevron-down" id="icon-${i}"></i>
+                    </button>
+                    <div class="rule-content" id="content-${i}">
+                        <p>${r.c}</p>
+                    </div>
+                </div>`;
+        });
+
+        function toggleRule(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
-                icon.className = "fas fa-plus";
+                icon.style.transform = "rotate(0deg)";
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
-                icon.className = "fas fa-minus";
+                icon.style.transform = "rotate(180deg)";
             }
         }
 
         function copyIP() {
             navigator.clipboard.writeText("sharkmc.us");
-            alert("¡IP copiada: sharkmc.us!");
+            alert("¡IP SHARKMC.US copiada! ¡Te esperamos en el servidor!");
         }
 
         async function sendTicket() {
+            const user = document.getElementById('tk_user').value;
+            const cat = document.getElementById('tk_category').value;
+            const msg = document.getElementById('tk_msg').value;
             const webhook = "https://discord.com/api/webhooks/1458676177584525404/Nu7dALR24DEXui_rhF9HhgamZCmffbinVL7zpcoCgmEWQvOYLiOiRKt2lIF4MJzcEKkY";
-            const user = document.getElementById('username').value;
-            const sub = document.getElementById('subject').value;
-            const msg = document.getElementById('message').value;
 
-            if(!user || !msg) return alert("Por favor completa los campos.");
+            if(!user || !msg) return alert("Error: Por favor rellena todos los campos del reporte.");
 
             const payload = {
+                username: "Spidey Bot - SharkMC Support",
+                avatar_url: "https://i.imgur.com/uG9XNQq.png",
                 embeds: [{
-                    title: "📩 NUEVO TICKET WEB: " + sub,
+                    title: "🔔 NUEVO TICKET DESDE EL DASHBOARD WEB",
                     color: 3447003,
                     fields: [
-                        { name: "Usuario", value: user, inline: true },
-                        { name: "Mensaje", value: msg }
-                    ]
+                        { name: "👤 REMITENTE", value: `\`${user}\``, inline: true },
+                        { name: "📁 CATEGORÍA", value: `\`${cat}\``, inline: true },
+                        { name: "💬 MENSAJE DETALLADO", value: msg }
+                    ],
+                    footer: { text: "SharkMC Automation 2026" },
+                    timestamp: new Date()
                 }]
             };
 
-            await fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            alert("¡Ticket enviado! Revisa Discord para la respuesta.");
+            try {
+                const response = await fetch(webhook, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if(response.ok) {
+                    alert("¡Ticket enviado con éxito! El Staff revisará tu caso en el canal de soporte.");
+                    document.getElementById('tk_msg').value = "";
+                }
+            } catch (err) {
+                alert("Hubo un error al enviar. Intenta unirte al Discord directamente.");
+            }
         }
     </script>
 </body>
